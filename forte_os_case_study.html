@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forte Operating System — Jessica Whitaker</title>
+<style>
+:root{
+  --dg:#0D2B1A; --lime:#C9F040; --mg:#40916C; --white:#FFFFFF;
+  --g50:#F7FAF5; --g100:#EAF2E5; --g200:#D3E3CB; --g400:#8FA890;
+  --g500:#6B8570; --g700:#2E4A34; --g900:#111C14;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+  --mono:'SF Mono','Consolas','Monaco',monospace;
+  --r-md:1rem; --r-lg:1.5rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--dg);color:var(--white);line-height:1.55;font-weight:400}
+.wrap{max-width:54rem;margin:0 auto;padding:0 2rem}
+
+header{padding:3rem 0 1.5rem}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--lime);margin-bottom:.75rem}
+h1{font-size:2.4rem;font-weight:800;line-height:1.05;letter-spacing:-.01em;margin-bottom:.75rem}
+.subtitle{color:var(--g200);font-size:1.0625rem;font-weight:400;max-width:38rem}
+.meta-row{display:flex;gap:2rem;margin-top:1.5rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.12)}
+.meta-item{font-size:.75rem;color:var(--g400);font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.meta-item strong{display:block;color:var(--white);font-size:.9375rem;font-weight:600;font-family:var(--font);text-transform:none;letter-spacing:0;margin-top:.2rem}
+
+main{padding:2rem 0 4rem}
+section{margin-bottom:2.5rem}
+h2{font-size:.75rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--lime);margin-bottom:1rem}
+p{color:var(--g100);font-size:.9375rem;font-weight:400;margin-bottom:.75rem}
+p:last-child{margin-bottom:0}
+
+.card{background:rgba(201,240,64,.05);border:1px solid rgba(201,240,64,.18);border-radius:var(--r-md);padding:1.5rem}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-bottom:2.5rem}
+.kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-md);padding:1.25rem}
+.kpi-val{font-size:1.85rem;font-weight:800;color:var(--lime);letter-spacing:-.02em;line-height:1}
+.kpi-label{font-size:.6875rem;color:var(--g400);font-family:var(--mono);text-transform:uppercase;letter-spacing:.03em;margin-top:.4rem}
+
+.layer-grid{display:flex;flex-direction:column;gap:.75rem}
+.layer{display:flex;gap:1rem;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-md);padding:1rem 1.25rem}
+.layer-num{font-family:var(--mono);color:var(--lime);font-weight:700;font-size:.875rem;flex-shrink:0;width:1.5rem}
+.layer p{font-size:.875rem;margin:0}
+.layer strong{color:var(--white);font-weight:700}
+.layer .tools{display:block;margin-top:.35rem;font-family:var(--mono);font-size:.6875rem;color:var(--mg);text-transform:uppercase;letter-spacing:.03em}
+
+.caveat{background:rgba(201,240,64,.06);border-left:3px solid var(--lime);border-radius:0 var(--r-md) var(--r-md) 0;padding:1rem 1.25rem;font-size:.8125rem;color:var(--g100)}
+
+footer{padding:2rem 0;text-align:center;font-size:.75rem;color:var(--g500);border-top:1px solid rgba(255,255,255,.1)}
+a{color:var(--lime)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Case Study &middot; Forte Bar Prep</div>
+  <h1>Forte Operating System</h1>
+  <p class="subtitle">A multi-connector marketing intelligence pipeline — designed and operated end-to-end, from raw customer signal to distributed content and strategy.</p>
+  <div class="meta-row">
+    <div class="meta-item">Company<strong>Forte Bar Prep</strong></div>
+    <div class="meta-item">Role<strong>Co-founder, customer intelligence & growth</strong></div>
+    <div class="meta-item">Cadence<strong>9 scheduled tasks, weekly + daily</strong></div>
+  </div>
+</header>
+
+<main>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val">5</div><div class="kpi-label">Connected systems in the pipeline</div></div>
+    <div class="kpi"><div class="kpi-val">9</div><div class="kpi-label">Scheduled, autonomous tasks</div></div>
+    <div class="kpi"><div class="kpi-val">3</div><div class="kpi-label">Signal sources — Reddit, Facebook, TikTok</div></div>
+    <div class="kpi"><div class="kpi-val">2</div><div class="kpi-label">Live Airtable systems of record</div></div>
+  </div>
+
+  <section>
+    <h2>The Problem</h2>
+    <p>Raw customer signal — what retakers actually say about failing, what overwhelms them, what competitors get wrong — was scattered across Reddit, Facebook groups, and TikTok with no pipeline connecting it to what Forte actually builds and sends. Manually reading and synthesizing that signal every week doesn't scale, and it's too slow to catch what's happening in real time.</p>
+  </section>
+
+  <section>
+    <h2>What I Built</h2>
+    <div class="card">
+      <p>A five-layer operating system that runs itself. Each layer hands off to the next automatically, on a schedule, with built-in checks that stop the pipeline rather than publish on bad data.</p>
+      <a href="forte_os_pipeline_demo.html" style="display:inline-flex;align-items:center;gap:.4rem;margin-top:1.25rem;background:var(--lime);color:var(--dg);padding:.6rem 1.4rem;border-radius:9999px;font-weight:700;font-size:.8125rem;text-decoration:none;font-family:var(--font)">See the pipeline run &rarr;</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>The Five Layers</h2>
+    <div class="layer-grid">
+      <div class="layer"><span class="layer-num">01</span><p><strong>Capture</strong> — automated scrapers pull fresh customer conversation weekly (Reddit, Facebook) and bi-weekly (TikTok), landing raw data in a shared drive with zero manual export.<span class="tools">Apify → Google Drive</span></p></div>
+      <div class="layer"><span class="layer-num">02</span><p><strong>Process</strong> — a Python engine filters raw posts into qualifying signal: context-aware keyword rules, promo filtering, freshness gates, and a security scan for injected or malicious content before anything downstream runs.<span class="tools">Custom Python pipeline</span></p></div>
+      <div class="layer"><span class="layer-num">03</span><p><strong>Orchestrate</strong> — nine scheduled tasks run the pipeline end-to-end on cron: pull data, process it, rebuild the keyword master, append an append-only strategic memory log, and generate outputs — with week-over-week deltas tracked automatically.<span class="tools">Scheduled task orchestration</span></p></div>
+      <div class="layer"><span class="layer-num">04</span><p><strong>Store</strong> — structured signal routes into Airtable as content-intelligence records; a separate Airtable base tracks live customer orders, fed automatically the moment a purchase happens.<span class="tools">Airtable + Zapier</span></p></div>
+      <div class="layer"><span class="layer-num">05</span><p><strong>Distribute</strong> — a formatted weekly strategy brief lands as a Google Doc, a live dashboard rebuilds itself with fresh data, and ready-to-send email sequences are drafted from the week's strongest signal.<span class="tools">Google Docs + live dashboard</span></p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>It Catches Its Own Mistakes</h2>
+    <p>The pipeline isn't fire-and-forget. When one data source went quiet for five weeks, I caught the gap, diagnosed it, and ran a one-time backfill task with a widened date window to recover the missing signal — rather than letting the strategy brief silently run on incomplete data. When a filter was over-aggressively dropping relevant posts, I audited it against real data and fixed the logic. That audit trail — every run, every fix, dated — is part of the system, not an afterthought.</p>
+  </section>
+
+  <section>
+    <h2>Reading It Honestly</h2>
+    <div class="caveat">This is operational infrastructure I designed, built, and maintain for a real business — not a one-time analysis or a static dashboard. The value isn't any single output; it's that the whole chain from raw signal to distributed strategy runs on its own, catches its own data-quality problems, and gets corrected when something breaks.</div>
+  </section>
+
+  <section>
+    <h2>What This Taught Me</h2>
+    <p>Building one dashboard is a data project. Making five different systems hand off to each other reliably, on a schedule, without someone watching it — that's an operations problem, and it's a different skill. I learned to design for failure as much as for success: every layer in this pipeline has a check that stops it from doing the wrong thing quietly.</p>
+  </section>
+
+</main>
+
+<footer>Jessica Whitaker &middot; Forte Bar Prep</footer>
+
+</div>
+</body>
+</html>
