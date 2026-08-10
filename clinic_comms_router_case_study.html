@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinic Comms Router — Jessica Whitaker</title>
+<style>
+@font-face{font-family:'ServiceNow Sans';src:url('https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'ServiceNow Sans';src:url('https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'ServiceNow Sans';src:url('https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'ServiceNow Sans Mono';src:url('https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSansMono-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --ib:#032D42; --wg:#63DF4E; --dt:#044355; --icon-bg:#2A4F62;
+  --white:#FFFFFF; --g50:#F9FAFB; --g100:#F3F4F6; --g200:#E5E7EB;
+  --g400:#9CA3AF; --g500:#6B7280; --g700:#374151; --g900:#111827;
+  --font:'ServiceNow Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --mono:'ServiceNow Sans Mono','Consolas','Monaco',monospace;
+  --r-md:1rem; --r-lg:1.5rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--ib);color:var(--white);line-height:1.55;font-weight:300}
+.wrap{max-width:52rem;margin:0 auto;padding:0 2rem}
+
+header{padding:3rem 0 1.5rem}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--wg);margin-bottom:.75rem}
+h1{font-size:2.5rem;font-weight:700;line-height:1.05;letter-spacing:-.01em;margin-bottom:.75rem}
+.subtitle{color:var(--g400);font-size:1.0625rem;font-weight:300;max-width:38rem}
+.meta-row{display:flex;gap:2rem;margin-top:1.5rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.meta-item{font-size:.75rem;color:var(--g500);font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.meta-item strong{display:block;color:var(--white);font-size:.9375rem;font-weight:500;font-family:var(--font);text-transform:none;letter-spacing:0;margin-top:.2rem}
+
+main{padding:2rem 0 4rem}
+section{margin-bottom:2.5rem}
+h2{font-size:.75rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--wg);margin-bottom:1rem}
+p{color:var(--g200);font-size:.9375rem;font-weight:300;margin-bottom:.75rem}
+p:last-child{margin-bottom:0}
+
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-md);padding:1.5rem}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1rem;margin-bottom:2.5rem}
+.kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-md);padding:1.25rem}
+.kpi-val{font-size:1.85rem;font-weight:700;color:var(--wg);letter-spacing:-.02em;line-height:1}
+.kpi-label{font-size:.6875rem;color:var(--g400);font-family:var(--mono);text-transform:uppercase;letter-spacing:.03em;margin-top:.4rem}
+
+.steps{display:flex;flex-direction:column;gap:.75rem}
+.step{display:flex;gap:1rem;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-md);padding:1rem 1.25rem}
+.step-num{font-family:var(--mono);color:var(--wg);font-weight:700;font-size:.875rem;flex-shrink:0}
+.step p{font-size:.875rem;margin:0}
+.step strong{color:var(--white);font-weight:500}
+
+.caveat{background:rgba(251,191,36,.06);border-left:3px solid #FBBF24;border-radius:0 var(--r-md) var(--r-md) 0;padding:1rem 1.25rem;font-size:.8125rem;color:var(--g200)}
+
+footer{padding:2rem 0;text-align:center;font-size:.75rem;color:var(--g500);border-top:1px solid rgba(255,255,255,.08)}
+a{color:var(--wg)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Case Study &middot; Customer Excellence Marketing</div>
+  <h1>Clinic Comms Router</h1>
+  <p class="subtitle">A lightweight internal tool that turned a manual, rep-by-rep outreach process into targeted, one-click messaging — built during the Agentic AI Exchange Clinics program.</p>
+  <div class="meta-row">
+    <div class="meta-item">Team<strong>Customer Excellence Marketing (CEM)</strong></div>
+    <div class="meta-item">Program<strong>Agentic AI Exchange Clinics</strong></div>
+    <div class="meta-item">Role<strong>Intern, sole designer &amp; builder</strong></div>
+  </div>
+</header>
+
+<main>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val">2</div><div class="kpi-label">Channels connected — email &amp; Teams</div></div>
+    <div class="kpi"><div class="kpi-val">2</div><div class="kpi-label">Targeting modes — single rep &amp; group by role</div></div>
+    <div class="kpi"><div class="kpi-val">3</div><div class="kpi-label">Message types — pre-invite, Teams nudge, post-clinic</div></div>
+    <div class="kpi"><div class="kpi-val">0</div><div class="kpi-label">New vendor contracts required</div></div>
+  </div>
+
+  <section>
+    <h2>The Problem</h2>
+    <p>Every clinic needed outreach to the account teams behind each registered account — a pre-invite nudge, a Teams heads-up, a post-clinic follow-up. That outreach was happening manually: finding the right rep, writing the message, sending it one account at a time. The account and registration data already lived in a tracker I'd built. The messaging didn't talk to it.</p>
+  </section>
+
+  <section>
+    <h2>What I Built</h2>
+    <div class="card">
+      <p>A communication layer on top of the existing registration tracker. Pick a clinic, choose how to target — a single rep or everyone in a role — and the tool pulls that rep's exact account list into a pre-filled, ready-to-send message. Three message types covered the full cycle: a pre-invite nudge, a Teams chat message, and a post-clinic follow-up, each pulling live from the same underlying account data instead of being written from scratch.</p>
+      <a href="clinic_comms_router_demo.html" style="display:inline-flex;align-items:center;gap:.4rem;margin-top:1.25rem;background:var(--wg);color:var(--ib);padding:.6rem 1.4rem;border-radius:9999px;font-weight:600;font-size:.8125rem;text-decoration:none;font-family:var(--font)">See how it works &rarr;</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why Not Just Buy a Platform?</h2>
+    <p>Dedicated internal-comms platforms already exist for this — targeted, dynamic-content mass messaging is a mature software category. That wasn't the point. I wasn't trying to replace that category; I was closing a specific gap in one program's workflow using what we already had, without a new procurement cycle or vendor contract. The value was proving the workflow — target by role, pull the right accounts automatically, send from one place — was worth building before anyone spent money solving it a bigger way.</p>
+  </section>
+
+  <section>
+    <h2>How It Connects</h2>
+    <div class="steps">
+      <div class="step"><span class="step-num">01</span><p><strong>Select</strong> — choose a clinic and a targeting mode; the tool filters the account list live from the tracker.</p></div>
+      <div class="step"><span class="step-num">02</span><p><strong>Generate</strong> — the right message type is pre-filled with that rep or role's specific accounts, ready to review.</p></div>
+      <div class="step"><span class="step-num">03</span><p><strong>Send</strong> — copy to Outlook or post to Teams. I validated with the AI Adoption team that this step could run through existing API triggers rather than manual copy-paste — that connection work was scoped but not completed before ownership moved.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Reading It Honestly</h2>
+    <div class="caveat">This tool never got wired to a live Teams or Outlook API — it stayed a working prototype with a manual copy-paste handoff at the last step. The team agreed the trigger-based connection was technically feasible, but the work to build it fell outside what our team could take on. I'm showing the workflow it was designed to enable, not a claim that it ran unattended in production.</div>
+  </section>
+
+  <section>
+    <h2>What This Taught Me</h2>
+    <p>Not every gap needs new software — some need the data you already have connected to the outreach you're already doing. I also learned where my build should stop: scoping a working prototype to prove the workflow, then handing the "connect it to production systems" piece to the team that owns that infrastructure, rather than trying to own a system integration I wasn't positioned to maintain.</p>
+  </section>
+
+</main>
+
+<footer>Jessica Whitaker &middot; Customer Excellence Marketing, ServiceNow</footer>
+
+</div>
+</body>
+</html>
