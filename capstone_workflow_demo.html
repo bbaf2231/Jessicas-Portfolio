@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — Post-Clinic Decision Engine</title>
+<style>
+@font-face{font-family:'ServiceNow Sans';src:url('https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'ServiceNow Sans';src:url('https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'ServiceNow Sans';src:url('https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'ServiceNow Sans Mono';src:url('https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSansMono-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --ib:#032D42; --wg:#63DF4E; --white:#FFFFFF;
+  --g100:#F3F4F6; --g400:#9CA3AF; --g500:#6B7280; --g700:#374151; --g900:#111827;
+  --font:'ServiceNow Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --mono:'ServiceNow Sans Mono','Consolas','Monaco',monospace;
+  --r-md:1rem; --r-lg:1.25rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:linear-gradient(135deg,#032D42 0%,#1E2A66 55%,#4B3F8C 100%);color:var(--white);line-height:1.5;font-weight:300;min-height:100vh}
+.wrap{max-width:60rem;margin:0 auto;padding:3rem 2rem 5rem}
+
+.eyebrow{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--wg);margin-bottom:.6rem}
+h1{font-size:2rem;font-weight:700;line-height:1.1;letter-spacing:-.01em;margin-bottom:.5rem}
+h1 .accent{color:var(--wg)}
+.lead{color:#C7CEDB;font-size:.9375rem;font-weight:300;max-width:38rem;margin-bottom:1rem}
+.disclaimer{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.04em;color:#FBBF24;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);padding:.4rem .8rem;border-radius:9999px;margin-bottom:2rem}
+
+/* ACCOUNT SELECTOR */
+.acct-select{display:flex;gap:.6rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.acct-pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:var(--white);padding:.55rem 1.1rem;border-radius:9999px;font-family:var(--font);font-size:.8125rem;font-weight:500;cursor:pointer;transition:.15s}
+.acct-pill:hover{background:rgba(255,255,255,.1)}
+.acct-pill.active{background:var(--wg);color:var(--ib);border-color:var(--wg)}
+
+/* PROGRESS */
+.progress{display:flex;align-items:center;gap:.5rem;margin-bottom:2rem}
+.pstep{display:flex;align-items:center;gap:.5rem}
+.pdot{width:1.9rem;height:1.9rem;border-radius:9999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:700;color:#8B93A8;transition:.3s}
+.pdot.done{background:var(--wg);color:var(--ib);border-color:var(--wg)}
+.pdot.current{border-color:var(--wg);color:var(--wg)}
+.pline{width:2.5rem;height:2px;background:rgba(255,255,255,.15)}
+.pline.done{background:var(--wg)}
+.plabel{font-size:.75rem;color:#9AA3B8}
+
+/* STEP CARDS */
+.step-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-lg);padding:1.75rem;margin-bottom:1.25rem;opacity:0;max-height:0;overflow:hidden;transition:opacity .5s ease, max-height .6s ease, margin .5s ease, padding .5s ease}
+.step-card.show{opacity:1;max-height:1400px;margin-bottom:1.25rem}
+.step-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+.step-badge{width:2rem;height:2rem;border-radius:9999px;background:var(--wg);color:var(--ib);font-weight:700;font-size:.875rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-head h2{font-size:1.05rem;font-weight:700}
+.step-head .step-sub{font-size:.75rem;color:#B7BFD1;font-weight:300;margin-top:.15rem}
+
+.mock{background:var(--white);color:var(--g900);border-radius:var(--r-md);padding:1.25rem;box-shadow:0 12px 30px rgba(0,0,0,.2)}
+.mock-label{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.05em;color:var(--g500);margin-bottom:.6rem}
+.raw-text{font-size:.875rem;color:var(--g700);line-height:1.6}
+.raw-text .fld{font-weight:700;color:var(--ib);font-size:.75rem;text-transform:uppercase;letter-spacing:.03em;display:block;margin-top:.75rem;margin-bottom:.15rem}
+.raw-text .fld:first-child{margin-top:0}
+
+.thinking{display:none;align-items:center;gap:.6rem;font-size:.8125rem;color:#C7CEDB;margin:1rem 0}
+.thinking.show{display:flex}
+.dot{width:.4rem;height:.4rem;border-radius:9999px;background:var(--wg);animation:pulse 1s infinite ease-in-out}
+.dot:nth-child(2){animation-delay:.15s}
+.dot:nth-child(3){animation-delay:.3s}
+@keyframes pulse{0%,80%,100%{opacity:.2;transform:scale(.7)}40%{opacity:1;transform:scale(1)}}
+
+.summary-text{font-size:.875rem;color:var(--g700);line-height:1.65}
+.status-badge{display:inline-block;background:#A78BFA;color:var(--white);font-weight:700;font-size:.6875rem;text-transform:uppercase;letter-spacing:.03em;padding:.3rem .7rem;border-radius:.4rem;margin-bottom:.85rem}
+
+.email-hdr{border-bottom:1px solid #E5E7EB;padding-bottom:.75rem;margin-bottom:.9rem}
+.email-hdr .from{font-size:.8125rem;color:var(--g500);margin-bottom:.3rem}
+.email-hdr .subj{font-weight:700;font-size:.9375rem;color:var(--g900)}
+.email-meta{font-size:.75rem;color:var(--g500);margin-bottom:.9rem}
+.email-body h4{font-size:.8125rem;font-weight:700;color:var(--ib);margin:.85rem 0 .3rem}
+.email-body h4:first-child{margin-top:0}
+.email-body p{font-size:.8125rem;color:var(--g700);margin-bottom:.2rem}
+.sent-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(99,223,78,.12);color:#1a7a2e;font-weight:700;font-size:.75rem;padding:.35rem .8rem;border-radius:9999px;margin-top:1rem}
+
+.btn{background:var(--wg);color:var(--ib);border:none;padding:.7rem 1.5rem;border-radius:9999px;font-weight:600;font-size:.8125rem;cursor:pointer;font-family:var(--font);margin-top:1.1rem}
+.btn:hover{background:#85ED77}
+.btn[disabled]{opacity:.4;cursor:default}
+.restart{background:transparent;border:1px solid rgba(255,255,255,.25);color:var(--white);padding:.6rem 1.3rem;border-radius:9999px;font-family:var(--font);font-size:.8125rem;cursor:pointer;margin-top:2rem}
+
+.stats{display:grid;grid-template-columns:1fr 2fr;gap:1rem;margin-top:2.5rem}
+@media(max-width:650px){.stats{grid-template-columns:1fr}}
+.stat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-md);padding:1.5rem}
+.stat-val{font-size:2.1rem;font-weight:700;color:var(--wg)}
+.stat-label{font-size:.8125rem;color:#C7CEDB;margin-top:.2rem}
+.stat-sub{font-size:.75rem;color:#9AA3B8;margin-top:.35rem}
+.note{margin-top:2rem;font-size:.75rem;color:#8B93A8;max-width:40rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Interactive walkthrough</div>
+  <h1>Turning Clinic Insight into <span class="accent">Account Action</span></h1>
+  <p class="lead">Pick an account, then run the workflow yourself: read the raw clinic notes, summarize them with AI, and approve the routed follow-up. Every step below actually runs when you click it.</p>
+  <div class="disclaimer">⚠ Demonstration only — all accounts, quotes, and data below are fictional</div>
+
+  <div class="acct-select" id="acct-select"></div>
+
+  <div class="progress" id="progress">
+    <div class="pstep"><div class="pdot current" id="pdot-1">1</div><span class="plabel">Insight</span></div>
+    <div class="pline" id="pline-1"></div>
+    <div class="pstep"><div class="pdot" id="pdot-2">2</div><span class="plabel">Summarize</span></div>
+    <div class="pline" id="pline-2"></div>
+    <div class="pstep"><div class="pdot" id="pdot-3">3</div><span class="plabel">Route</span></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-card show" id="card-1">
+    <div class="step-head">
+      <div class="step-badge">1</div>
+      <div><h2>Direct Customer Insight</h2><div class="step-sub">Facilitator's raw notes from the clinic — unedited</div></div>
+    </div>
+    <div class="mock">
+      <div class="mock-label">Facilitator input</div>
+      <div class="raw-text" id="raw-text"></div>
+    </div>
+    <button class="btn" id="btn-summarize" onclick="runSummarize()">Summarize with AI →</button>
+    <div class="thinking" id="thinking-1"><span class="dot"></span><span class="dot"></span><span class="dot"></span> AI is synthesizing the notes...</div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-card" id="card-2">
+    <div class="step-head">
+      <div class="step-badge">2</div>
+      <div><h2>Build Account-Ready Intelligence</h2><div class="step-sub">AI agent structures the recap and matches resources</div></div>
+    </div>
+    <div class="mock">
+      <div class="mock-label">Structured summary</div>
+      <div class="status-badge">Pending Review</div>
+      <div class="summary-text" id="summary-text"></div>
+    </div>
+    <button class="btn" id="btn-approve" onclick="runApprove()">Approve &amp; Route to Account Team →</button>
+    <div class="thinking" id="thinking-2"><span class="dot"></span><span class="dot"></span><span class="dot"></span> Routing to account team...</div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-card" id="card-3">
+    <div class="step-head">
+      <div class="step-badge">3</div>
+      <div><h2>Enable Timely Account Action</h2><div class="step-sub">Approved recap reaches the account team</div></div>
+    </div>
+    <div class="mock">
+      <div class="mock-label">Routed email</div>
+      <div class="email-hdr">
+        <div class="from">Customer Excellence Marketing</div>
+        <div class="subj">Post-Clinic Summary and Recommended Next Steps</div>
+      </div>
+      <div class="email-meta" id="email-meta"></div>
+      <div class="email-body" id="email-body"></div>
+      <span class="sent-badge">✓ Delivered to account team</span>
+    </div>
+  </div>
+
+  <button class="restart" onclick="reset()">↺ Try another account</button>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-val">80%</div>
+      <div class="stat-label">Faster follow-up</div>
+      <div class="stat-sub">Manual effort reduced to review-and-send, across all clinics.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">75% → 1.5x → 18%</div>
+      <div class="stat-label">Attendance → adoption momentum → go-live</div>
+      <div class="stat-sub">Program-level results across the full clinic cohort — not tied to any single account shown here.</div>
+    </div>
+  </div>
+
+  <p class="note">All account names, quotes, and figures on this page are illustrative and constructed for demonstration purposes. No real customer, contract, or account data is shown. Program-level stats above reflect real, already-presented aggregate results.</p>
+
+</div>
+
+<script>
+const accounts = [
+  {
+    id: 1,
+    name: "Account 1",
+    clinic: "Agentic AI Exchange Clinic — Site A",
+    raw: {
+      Insights: "The client was wondering if/how Agents would help fix the current state of their platform. They mentioned they have ITSM in place but requestors do not consistently input Category, Subcategory, or Service.",
+      Recommended: "We discussed how Agents wouldn't be the right place to start fixing the data quality issue — Agents need good data to work. Suggested Machine Learning and Predictive Intelligence to correct records at the requestor level and improve backend data with L1 fulfillers.",
+      "Next Steps": "Their assumptions on how to fix the current state were validated. They'll take this conversation back to leadership to develop an action plan."
+    },
+    summary: "The client explored how Agents can improve their platform. They have ITSM in place, but requestors are not consistently entering Category, Subcategory, or Service. We discussed that Agents require good data to be effective, and recommended Machine Learning and Predictive Intelligence to improve data quality in Incident records and auto-populate missing fields — correcting records at the requestor level and improving backend data with L1 fulfillers. The client's assumptions were validated; they'll bring this back to leadership to build an action plan.",
+    signal: "\"Given we're early in our AI journey, I think this could be extremely valuable for our team. Would it be possible to arrange for a ServiceNow AI expert to spend a day or two with us and help us build a practical roadmap?\"",
+    aeResponse: "\"The team enjoyed the session and found it productive. They want more — is there a way to get the right team engaged again?\"",
+    handoff: "\"We've shared your notes from the clinic with the account team. Please let them know if they can schedule a meeting to connect on next steps.\"",
+    internal: "\"We usually engage through the AI Adoption Center. It would be great if the Account Executive could fill out the form, then we can huddle on next best steps.\""
+  },
+  {
+    id: 2,
+    name: "Account 2",
+    clinic: "Agentic AI Exchange Clinic — Site B",
+    raw: {
+      Insights: "The client asked whether Agents could handle repetitive HR case triage. They're manually routing 200+ cases per week and want to know if agentic workflows could reduce that load.",
+      Recommended: "Discussed HR Agent templates for case triage and escalation, and suggested piloting with a single case type before scaling to the full queue.",
+      "Next Steps": "Client wants a scoped proof-of-concept within 30 days, pending internal sign-off."
+    },
+    summary: "The client is manually triaging 200+ HR cases per week and asked whether agentic workflows could reduce that load. We discussed HR Agent templates for case triage and escalation, recommending a single-case-type pilot before scaling across the full queue. The client wants a scoped proof-of-concept within 30 days, pending internal sign-off.",
+    signal: "\"Could someone from ServiceNow help us scope a pilot for HR case triage? We're drowning in manual routing right now.\"",
+    aeResponse: "\"They're motivated and ready to move fast — let's not lose momentum on this one.\"",
+    handoff: "\"We've shared the pilot scope discussion from the clinic. Please loop in the HR Agent specialist team for a scoping call.\"",
+    internal: "\"Route through the AI Adoption Center's pilot intake form so we can assign the right specialist within the week.\""
+  },
+  {
+    id: 3,
+    name: "Account 3",
+    clinic: "Agentic AI Exchange Clinic — Site C",
+    raw: {
+      Insights: "Client wants to reduce time-to-resolution on IT incidents — currently averaging 48 hours per ticket due to manual triage and unclear escalation paths.",
+      Recommended: "Discussed Agentic ITSM triage, auto-categorization, and escalation logic. Flagged the same underlying data-quality prerequisite seen with other accounts.",
+      "Next Steps": "Client will socialize internally and revisit scoping after their Q3 planning cycle."
+    },
+    summary: "The client's IT incidents average 48 hours to resolve, largely due to manual triage and unclear escalation paths. We discussed Agentic ITSM triage, auto-categorization, and escalation logic — flagging the same data-quality prerequisite seen with other accounts as a likely blocker. The client will socialize this internally and revisit scoping after their Q3 planning cycle.",
+    signal: "\"Is there a way to fast-track a working session before our Q3 planning cycle? Ticket resolution time is becoming a real problem for us.\"",
+    aeResponse: "\"They're feeling the pain of slow resolution times — this is a good one to prioritize before they lose patience.\"",
+    handoff: "\"We've shared the incident-triage discussion from the clinic. Please reach out ahead of their Q3 planning if possible.\"",
+    internal: "\"Get this into the AI Adoption Center queue now — timing matters here given their planning cycle.\""
+  }
+];
+
+let current = accounts[0];
+
+function renderAccountPills(){
+  const wrap = document.getElementById('acct-select');
+  wrap.innerHTML = '';
+  accounts.forEach(a=>{
+    const b = document.createElement('button');
+    b.className = 'acct-pill' + (a.id===current.id ? ' active' : '');
+    b.textContent = a.name;
+    b.onclick = ()=>{ current = a; reset(); };
+    wrap.appendChild(b);
+  });
+}
+
+function loadStep1(){
+  const t = document.getElementById('raw-text');
+  t.innerHTML = Object.entries(current.raw).map(([k,v])=>
+    '<span class="fld">'+k+'</span>'+v
+  ).join('');
+}
+
+function setProgress(step){
+  for(let i=1;i<=3;i++){
+    const dot = document.getElementById('pdot-'+i);
+    dot.classList.remove('done','current');
+    if(i<step) dot.classList.add('done');
+    else if(i===step) dot.classList.add('current');
+  }
+  for(let i=1;i<=2;i++){
+    document.getElementById('pline-'+i).classList.toggle('done', step>i);
+  }
+}
+
+function runSummarize(){
+  document.getElementById('btn-summarize').disabled = true;
+  document.getElementById('thinking-1').classList.add('show');
+  setTimeout(()=>{
+    document.getElementById('thinking-1').classList.remove('show');
+    document.getElementById('summary-text').textContent = current.summary;
+    document.getElementById('card-2').classList.add('show');
+    setProgress(2);
+    document.getElementById('card-2').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }, 1200);
+}
+
+function runApprove(){
+  document.getElementById('btn-approve').disabled = true;
+  document.getElementById('thinking-2').classList.add('show');
+  setTimeout(()=>{
+    document.getElementById('thinking-2').classList.remove('show');
+    document.getElementById('email-meta').textContent = 'Account: '+current.name+'   ·   Clinic: '+current.clinic;
+    document.getElementById('email-body').innerHTML =
+      '<h4>Customer Signal</h4><p>'+current.signal+'</p>'+
+      '<h4>Account Executive Response</h4><p>'+current.aeResponse+'</p>'+
+      '<h4>Facilitator Handoff</h4><p>'+current.handoff+'</p>'+
+      '<h4>Internal Next Step</h4><p>'+current.internal+'</p>';
+    document.getElementById('card-3').classList.add('show');
+    setProgress(3);
+    document.getElementById('card-3').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }, 1200);
+}
+
+function reset(){
+  document.getElementById('card-2').classList.remove('show');
+  document.getElementById('card-3').classList.remove('show');
+  document.getElementById('btn-summarize').disabled = false;
+  document.getElementById('btn-approve').disabled = false;
+  setProgress(1);
+  loadStep1();
+  renderAccountPills();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+renderAccountPills();
+loadStep1();
+</script>
+</body>
+</html>
