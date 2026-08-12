@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Background — Jessica Whitaker</title>
+<style>
+:root{
+  --bg:#FAF6F0; --card:#F1EAE0; --card-line:#E4D9C9;
+  --ink:#2B2622; --muted:#6E6459; --faint:#9A8F80;
+  --cardinal:#8C1D40; --cardinal-deep:#5E1129;
+  --serif:Georgia,'Iowan Old Style','Palatino Linotype',serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --mono:'SF Mono','Consolas','Menlo',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6}
+.wrap{max-width:64rem;margin:0 auto;padding:3.5rem 2rem 4rem}
+
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cardinal);text-align:center;margin-bottom:.5rem}
+h1{font-family:var(--serif);font-style:italic;font-size:2.75rem;font-weight:700;color:var(--cardinal);text-align:center;margin-bottom:2.25rem}
+
+.panel{
+  position:relative;
+  border-radius:1.5rem;
+  overflow:hidden;
+  background:linear-gradient(180deg,#7C86B8 0%,#B98FA8 35%,#E3A98F 65%,#F0C99A 100%);
+  padding:3rem 2.5rem 2.5rem;
+}
+.panel::before{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(92,17,41,.15) 0%, rgba(92,17,41,.55) 55%, rgba(92,17,41,.75) 100%);
+}
+.panel-inner{position:relative;z-index:1}
+
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center}
+.badge{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--cardinal);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1rem;
+  border:2px solid rgba(255,255,255,.5);
+}
+.badge svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:1.6}
+.col h2{font-family:var(--serif);font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:.4rem}
+.col hr{border:none;border-top:1px solid rgba(255,255,255,.5);width:70%;margin:0 auto 1rem}
+.col ul{list-style:none}
+.col li{color:#fff;font-size:.875rem;margin-bottom:.55rem;line-height:1.5}
+
+.meta-line{text-align:center;color:#fff;font-size:.9375rem;margin-top:1.75rem;line-height:1.6}
+.meta-line strong{font-weight:700}
+
+footer{text-align:center;margin-top:2.5rem}
+footer a{color:var(--cardinal);font-size:.875rem;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">About</div>
+  <h1>Background</h1>
+
+  <div class="panel">
+    <div class="panel-inner">
+      <div class="cols">
+
+        <div class="col">
+          <div class="badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></div>
+          <h2>Work experience</h2>
+          <hr>
+          <ul>
+            <li>Luxury client segmentation</li>
+            <li>Culinary and event logistics management</li>
+            <li>Funnel optimization and UX analytics</li>
+            <li>Client engagement and experiential service</li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <div class="badge"><svg viewBox="0 0 24 24"><path d="M3 9l9-5 9 5-9 5-9-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+          <h2>University of Southern California</h2>
+          <hr>
+          <ul>
+            <li>International Relations, Global Business emphasis</li>
+            <li>Minor in Consumer Behavior Analysis</li>
+            <li>Michael Young Undergraduate Scholar</li>
+          </ul>
+          <div class="meta-line"><strong>GPA 3.3</strong><br>Graduation 2026</div>
+        </div>
+
+        <div class="col">
+          <div class="badge"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="2.5"/><circle cx="16" cy="8" r="2.5"/><circle cx="12" cy="16" r="2.5"/><path d="M8 10.5v3M16 10.5v3M9.8 15.2l1.5-1M14.2 15.2l-1.5-1"/></svg></div>
+          <h2>Leadership and internships</h2>
+          <hr>
+          <ul>
+            <li>bOnline, Telecom SaaS</li>
+            <li>Mayor's Office of International Affairs</li>
+            <li>National Civic League</li>
+            <li>USC Consulting Club</li>
+            <li>USC Football Recruiting</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="home.html">&larr; Back to home</a>
+  </footer>
+
+</div>
+</body>
+</html>
