@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bOnline: Funnel Diagnostics and UX Optimization</title>
+<style>
+:root{
+  --bg:#0B0A14;
+  --bg2:#141225;
+  --panel:rgba(255,255,255,0.04);
+  --panel-strong:rgba(255,255,255,0.07);
+  --line:rgba(255,255,255,0.09);
+  --purple:#7856FF;
+  --purple-light:#A78BFA;
+  --teal:#2DD4BF;
+  --pink:#F472B6;
+  --red:#FB7185;
+  --ink:#F2F1F8;
+  --muted:#9B96B8;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(120,86,255,0.20), transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(45,212,191,0.10), transparent 40%),
+    linear-gradient(180deg, #0B0A14 0%, #100E20 50%, #0B0A14 100%);
+  line-height:1.55;
+}
+.wrap{max-width:1100px; margin:0 auto; padding:0 24px 100px;}
+
+/* HERO */
+.hero{padding:70px 24px 50px; text-align:center; max-width:900px; margin:0 auto;}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); font-weight:600; margin-bottom:18px;}
+.eyebrow::before{content:"●"; font-size:9px;}
+h1{font-size:clamp(32px,5vw,52px); font-weight:800; margin:0 0 20px; line-height:1.15;}
+h1 span{background:linear-gradient(90deg,var(--purple-light),var(--teal)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.subtitle{font-size:18px; color:var(--muted); max-width:680px; margin:0 auto;}
+.hero-badges{display:flex; justify-content:center; gap:10px; margin-top:28px; flex-wrap:wrap;}
+.badge{background:var(--panel); border:1px solid var(--line); padding:7px 14px; border-radius:999px; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px;}
+
+/* SECTION HEAD */
+.section{margin-top:64px;}
+.section-head{margin-bottom:28px;}
+.section-eyebrow{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--purple-light); font-weight:700; margin-bottom:8px;}
+.section-title{font-size:clamp(22px,3vw,30px); font-weight:800; margin:0; letter-spacing:-0.3px;}
+.section-sub{color:var(--muted); font-size:15.5px; margin-top:8px; max-width:700px;}
+
+/* GLASS PANEL */
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:28px;
+  backdrop-filter: blur(14px);
+}
+
+/* STAR GRID */
+.star-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+.star-card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px; backdrop-filter:blur(14px);}
+.star-card .label{font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); font-weight:700; border-left:3px solid var(--teal); padding-left:10px; margin-bottom:12px;}
+.star-card p{margin:0; font-size:14.5px; color:#DCD9EE;}
+
+/* ROLE LIST */
+.role-panel{display:grid; grid-template-columns:1.1fr 1fr; gap:26px; align-items:center;}
+.role-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px;}
+.role-list li{display:grid; grid-template-columns:34px 1fr; gap:14px; align-items:flex-start; font-size:14.5px; color:#DCD9EE;}
+.role-list .li-icon{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:14px; background:radial-gradient(circle at 32% 28%, var(--purple-light), var(--purple)); box-shadow:inset 0 2px 3px rgba(255,255,255,0.35), inset 0 -2px 4px rgba(0,0,0,0.35), 0 4px 10px rgba(120,86,255,0.25);}
+.role-list .li-framework{display:block; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--teal); font-weight:700; margin-bottom:3px;}
+.role-side{background:linear-gradient(145deg, rgba(120,86,255,0.18), rgba(45,212,191,0.08)); border:1px solid var(--line); border-radius:16px; padding:24px;}
+.role-side h4{margin:0 0 6px; font-size:14px; color:var(--purple-light); text-transform:uppercase; letter-spacing:1px;}
+.role-side p{margin:0 0 18px; font-size:14px; color:var(--muted);}
+.role-side p:last-child{margin-bottom:0;}
+
+/* FUNNEL DIAGNOSTIC */
+.diag-grid{display:grid; grid-template-columns:260px 1fr; gap:22px;}
+.diag-issues{display:flex; flex-direction:column; gap:0; border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+.diag-issue{padding:16px 18px; border-bottom:1px solid var(--line); background:var(--panel);}
+.diag-issue:last-child{border-bottom:none;}
+.diag-issue h5{margin:0 0 6px; font-size:12.5px; letter-spacing:1px; text-transform:uppercase; color:var(--red); display:flex; align-items:center; gap:8px;}
+.diag-issue p{margin:0; font-size:13px; color:var(--muted);}
+.funnel-stage-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.fstage{
+  background:linear-gradient(160deg, rgba(120,86,255,0.16), rgba(255,255,255,0.02));
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px;
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  position:relative;
+}
+.fstage:hover{transform:translateY(-3px); border-color:var(--purple-light); box-shadow:0 12px 30px rgba(120,86,255,0.18);}
+.fstage .fs-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
+.fstage .fs-left{display:flex; align-items:center; gap:10px;}
+.fstage .fs-icon{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:15px; background:radial-gradient(circle at 32% 28%, #FDA4AF, var(--red)); box-shadow:inset 0 2px 3px rgba(255,255,255,0.35), inset 0 -2px 4px rgba(0,0,0,0.35), 0 4px 10px rgba(251,113,133,0.25); flex-shrink:0;}
+.fstage .fs-name{font-weight:700; font-size:15px;}
+.fstage .fs-chip{font-size:11px; background:rgba(251,113,133,0.18); color:var(--red); padding:4px 9px; border-radius:999px; font-weight:700; white-space:nowrap;}
+.fstage .fs-detail p{margin:0; font-size:13px; color:var(--muted);}
+
+/* STAT TILES */
+.stat-bar{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
+.stat{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 14px; text-align:center;}
+.stat-icon{width:40px; height:40px; border-radius:12px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:18px; background:radial-gradient(circle at 35% 30%, var(--purple-light), var(--purple)); box-shadow:inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3);}
+.stat .num{font-size:22px; font-weight:800; color:var(--teal);}
+.stat .lbl{font-size:12px; font-weight:700; margin-top:4px;}
+.stat .desc{font-size:11px; color:var(--muted); margin-top:4px;}
+
+/* DASHBOARD CARD (mixpanel style) */
+.dash-card{background:linear-gradient(160deg,#161327,#0D0B18); border:1px solid var(--line); border-radius:16px; padding:24px;}
+.dash-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:8px;}
+.dash-head h4{margin:0; font-size:15px; font-weight:700;}
+.dash-tag{font-size:11px; color:var(--purple-light); background:rgba(120,86,255,0.15); padding:4px 10px; border-radius:999px; font-weight:700;}
+.legend{display:flex; gap:16px; font-size:12px; color:var(--muted); margin-bottom:14px;}
+.legend span{display:flex; align-items:center; gap:6px;}
+.legend i{width:10px; height:10px; border-radius:3px; display:inline-block;}
+
+/* BAR CHART */
+.bars{display:flex; align-items:flex-end; gap:26px; height:180px; padding:0 6px;}
+.bar-group{display:flex; flex-direction:column; align-items:center; gap:8px; flex:1;}
+.bar-pair{display:flex; align-items:flex-end; gap:5px; height:150px;}
+.bar{width:22px; border-radius:6px 6px 0 0; position:relative;}
+.bar.purple{background:linear-gradient(180deg,var(--purple-light),var(--purple));}
+.bar.teal{background:linear-gradient(180deg,#5EEAD4,var(--teal));}
+.bar .val{position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:10.5px; color:var(--muted); white-space:nowrap;}
+.bar-group .glabel{font-size:11.5px; color:var(--muted); text-align:center;}
+
+/* LATENCY BARS (horizontal before/after) */
+.lat-rows{display:flex; flex-direction:column; gap:20px;}
+.lat-row{display:grid; grid-template-columns:110px 1fr 90px; align-items:center; gap:14px;}
+.lat-name{font-size:13.5px; font-weight:600;}
+.lat-track{background:rgba(255,255,255,0.06); border-radius:8px; height:14px; overflow:hidden; position:relative;}
+.lat-fill{height:100%; border-radius:8px; background:linear-gradient(90deg,var(--purple),var(--teal));}
+.lat-pct{font-size:12.5px; color:var(--teal); font-weight:700; text-align:right;}
+
+/* Approve-style click hint reused as toggle hint */
+.click-hint{font-size:12px; color:var(--purple-light); text-align:center; margin-top:8px;}
+
+/* PROOF / QUOTE CARDS */
+.quote-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px;}
+.quote-card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px;}
+.quote-card p{margin:0; font-size:13.5px; color:#DCD9EE; font-style:italic;}
+.quote-card .who{margin-top:10px; font-size:12px; color:var(--muted); font-style:normal;}
+
+/* SKILLS GRID */
+.skills-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+.skill-card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; text-align:center;}
+.skill-icon{width:44px; height:44px; border-radius:12px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; background:radial-gradient(circle at 35% 30%, var(--purple-light), var(--purple)); box-shadow:inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3);}
+.skill-card h5{margin:0 0 8px; font-size:13.5px;}
+.skill-card p{margin:0; font-size:12px; color:var(--muted); text-align:left;}
+.skill-card ul{margin:0; padding-left:16px; text-align:left; font-size:12px; color:var(--muted);}
+.skill-card li{margin-bottom:4px;}
+
+/* CLOSING */
+.produced{margin-top:70px; position:relative;}
+.produced::before{content:""; display:block; width:60px; height:3px; background:linear-gradient(90deg,var(--purple),var(--teal)); margin-bottom:18px; border-radius:2px;}
+.produced-eyebrow{font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); font-weight:700; margin-bottom:8px;}
+.produced-head{font-size:clamp(26px,3.4vw,36px); font-weight:800; margin:0 0 14px;}
+.produced-sub{color:var(--muted); font-size:15.5px; max-width:720px; margin-bottom:26px;}
+
+.disclaimer{margin-top:60px; font-size:12.5px; color:var(--muted); border-top:1px solid var(--line); padding-top:22px; line-height:1.7;}
+
+@media (max-width:760px){
+  .role-panel, .diag-grid, .quote-grid{grid-template-columns:1fr;}
+  .stat-bar, .skills-grid, .funnel-stage-grid, .star-grid{grid-template-columns:repeat(2,1fr);}
+  .bars{gap:12px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">bOnline · Marketing Analytics Internship</div>
+    <h1>Finding Why Users Were <span>Dropping Off</span>, Then Proving the Fix</h1>
+    <p class="subtitle">A UX and funnel diagnostics project where I traced sign-up drop-offs back to page load latency, partnered with the CTO on the backend fix, and tracked the before-and-after impact across four weeks.</p>
+    <div class="hero-badges">
+      <div class="badge">Mixpanel</div>
+      <div class="badge">Hotjar</div>
+      <div class="badge">Excel</div>
+      <div class="badge">CRM / API Diagnostics</div>
+    </div>
+  </div>
+
+  <!-- STAR INTRO -->
+  <div class="section">
+    <div class="star-grid">
+      <div class="star-card">
+        <div class="label">Situation</div>
+        <p>bOnline is a multi-award-winning UK VoIP and business broadband provider for small businesses. The sign-up funnel had a quiet problem: a meaningful share of users were abandoning before they ever got an account, and no one had pinned down why.</p>
+      </div>
+      <div class="star-card">
+        <div class="label">Task</div>
+        <p>As Marketing Analytics Intern, I was asked to dig into 1,000+ Hotjar recordings and Mixpanel flow data to find where users were actually getting stuck, then turn that into something the team could act on.</p>
+      </div>
+      <div class="star-card">
+        <div class="label">Action</div>
+        <p>I built an Excel tracking system to log latency at every funnel step, isolated three severe bottlenecks, and worked directly with the CTO on a database migration and API fix. Then I re-measured every week to prove the fix actually worked.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLE -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-eyebrow">Role Scope</div>
+      <h2 class="section-title">Diagnostic Approach and Core Responsibilities</h2>
+    </div>
+    <div class="panel role-panel">
+      <ul class="role-list">
+        <li><div class="li-icon">🔍</div><div><span class="li-framework">Root-Cause Diagnosis</span>Applied a structured, evidence-first approach across 1,000+ Hotjar session recordings and Mixpanel flow data to isolate the specific latency drivers behind a 40%+ early-funnel exit rate.</div></li>
+        <li><div class="li-icon">📐</div><div><span class="li-framework">Measurement Framework</span>Designed an Excel-based tracking model to quantify response times at every funnel step, turning anecdotal friction into a testable, step-by-step dataset.</div></li>
+        <li><div class="li-icon">🤝</div><div><span class="li-framework">Cross-Functional Execution</span>Partnered with the CTO on query and API optimization, contributing to a database migration that reduced lookup times from 4.5s to 2.5s.</div></li>
+        <li><div class="li-icon">📊</div><div><span class="li-framework">Impact Validation</span>Re-tested weekly against the same tracker to confirm the fix held, translating an 80%+ spinner speed gain into a 7.6-point lift in sign-up completions.</div></li>
+      </ul>
+      <div class="role-side">
+        <h4>Team</h4>
+        <p>Collaborated closely with the Head of Marketing and the Marketing Analytics team, and partnered cross-functionally with Design, Development, and Product to turn findings into shipped fixes.</p>
+        <h4>About bOnline</h4>
+        <p>A multi-award-winning UK company providing low-cost, reliable VoIP phone systems and business broadband, built on the UK's #1 carrier network. Comms Council UK Winner, 2021–2024.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS DASHBOARD -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-eyebrow">Diagnostic Findings</div>
+      <h2 class="section-title">Isolating the Early-Funnel Bottlenecks</h2>
+      <p class="section-sub">Four points in the sign-up flow accounted for nearly all severe-impact drop-offs, identified through session-replay analysis and cross-referenced against funnel timing data.</p>
+    </div>
+    <div class="diag-grid">
+      <div class="diag-issues">
+        <div class="diag-issue"><h5>⛔ Verification Errors</h5><p>Users got stuck or confused entering codes.</p></div>
+        <div class="diag-issue"><h5>🔒 Unresponsive Controls</h5><p>Key buttons failed to register clicks.</p></div>
+        <div class="diag-issue"><h5>👤 Idle Abandonment</h5><p>Users paused for long stretches, unsure how to proceed.</p></div>
+      </div>
+      <div class="funnel-stage-grid" id="funnelGrid">
+        <div class="fstage">
+          <div class="fs-top"><div class="fs-left"><div class="fs-icon">⏳</div><span class="fs-name">Email Spinner</span></div><span class="fs-chip">avg ~11s</span></div>
+          <div class="fs-detail"><p>Load time ranged 8 to 14 seconds. Drop-offs concentrated once wait exceeded 5 to 8 seconds, causing immediate exits.</p></div>
+        </div>
+        <div class="fstage">
+          <div class="fs-top"><div class="fs-left"><div class="fs-icon">🔘</div><span class="fs-name">Continue Button</span></div><span class="fs-chip">23 to 25s</span></div>
+          <div class="fs-detail"><p>Button unresponsiveness during the confirmation flow, compounded by overlapping account-creation behavior.</p></div>
+        </div>
+        <div class="fstage">
+          <div class="fs-top"><div class="fs-left"><div class="fs-icon">🔢</div><span class="fs-name">PIN Provisioning</span></div><span class="fs-chip">40% drop-off</span></div>
+          <div class="fs-detail"><p>Provisioning exceeded 3 minutes. Lagging and frozen states drove 40% of users to abandon at this page.</p></div>
+        </div>
+        <div class="fstage">
+          <div class="fs-top"><div class="fs-left"><div class="fs-icon">📧</div><span class="fs-name">Confirmation Code</span></div><span class="fs-chip">24.3 min</span></div>
+          <div class="fs-detail"><p>Prior to the fix, this step averaged 24.3 minutes from send to entry, the single largest source of funnel drop-off.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LATENCY IMPACT DASHBOARD -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-eyebrow">The Fix, Measured</div>
+      <h2 class="section-title">Four Weeks of Latency Tracking</h2>
+      <p class="section-sub">After the CTO-led database migration and API query optimization, I re-measured every stage weekly using the same Excel tracker to confirm the fix was actually holding.</p>
+    </div>
+    <div class="dash-card">
+      <div class="dash-head">
+        <h4>Response Time Reduction, Overall</h4>
+        <span class="dash-tag">Excel latency tracker</span>
+      </div>
+      <div class="lat-rows">
+        <div class="lat-row">
+          <div class="lat-name">Email Spinner</div>
+          <div class="lat-track"><div class="lat-fill" style="width:89%"></div></div>
+          <div class="lat-pct">89% faster</div>
+        </div>
+        <div class="lat-row">
+          <div class="lat-name">Continue / SMS</div>
+          <div class="lat-track"><div class="lat-fill" style="width:95%"></div></div>
+          <div class="lat-pct">95% faster</div>
+        </div>
+        <div class="lat-row">
+          <div class="lat-name">PIN Spinner</div>
+          <div class="lat-track"><div class="lat-fill" style="width:69%"></div></div>
+          <div class="lat-pct">69% faster</div>
+        </div>
+      </div>
+      <p class="click-hint" style="margin-top:18px; color:var(--muted); font-style:italic;">"Migration cut lookup time from 4.5s to 2.5s for email and phone entry," from project notes on the database migration.</p>
+    </div>
+  </div>
+
+  <!-- CONVERSION DASHBOARD -->
+  <div class="section">
+    <div class="dash-card">
+      <div class="dash-head">
+        <h4>Step-Level Conversion Rate (Week Over Week)</h4>
+        <span class="dash-tag">Mixpanel funnel report</span>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--purple-light)"></i>Continue with Email</span>
+        <span><i style="background:var(--teal)"></i>Create Account</span>
+      </div>
+      <div class="bars">
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div class="bar purple" style="height:62.6%"><span class="val">62.6%</span></div>
+            <div class="bar teal" style="height:87%"><span class="val">87.0%</span></div>
+          </div>
+          <div class="glabel">Jun 30–Jul 7</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div class="bar purple" style="height:65.3%"><span class="val">65.3%</span></div>
+            <div class="bar teal" style="height:92.8%"><span class="val">92.8%</span></div>
+          </div>
+          <div class="glabel">Jul 8–15</div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-pair">
+            <div class="bar purple" style="height:66.3%"><span class="val">66.3%</span></div>
+            <div class="bar teal" style="height:93.6%"><span class="val">93.6%</span></div>
+          </div>
+          <div class="glabel">Jul 16–22</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTES -->
+  <div class="section">
+    <div class="quote-grid">
+      <div class="quote-card">
+        <p>"Before the UI fix, 12.5% dropped after the email spinner. After the fix, 0 drop-offs: improved spinner speed and code delivery kept all users moving forward."</p>
+        <div class="who">Project findings, confirmation step</div>
+      </div>
+      <div class="quote-card">
+        <p>"Combined improvements reduced average wait times by over 80% across both spinners, significantly enhancing user flow and reducing drop-offs."</p>
+        <div class="who">Project findings, overall impact</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-eyebrow">How I Got There</div>
+      <h2 class="section-title">Tools &amp; Skills Behind the Diagnosis</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">M</div>
+        <h5>Mixpanel</h5>
+        <ul><li>Built funnel reports and segmented users</li><li>Tracked in-app events and conversion metrics</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">H</div>
+        <h5>Hotjar</h5>
+        <ul><li>Analyzed session replays for UX friction</li><li>Linked behavioral cues to quantitative metrics</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">X</div>
+        <h5>Excel</h5>
+        <ul><li>Built a latency tracking system from scratch</li><li>Logged response times across every funnel step</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <h5>Data Analysis</h5>
+        <ul><li>Formed and tested hypotheses</li><li>Turned analysis into plain-language recommendations</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT THIS PRODUCED -->
+  <div class="produced">
+    <div class="produced-eyebrow">● The Payoff</div>
+    <h2 class="produced-head">What This Diagnosis Actually Produced</h2>
+    <p class="produced-sub">Root-causing the latency issues and partnering on the backend fix moved real numbers, not just anecdotes. Re-measured over four weeks against the same Excel tracker.</p>
+    <div class="stat-bar">
+      <div class="stat"><div class="stat-icon">📈</div><div class="num">+7.6pp</div><div class="lbl">Funnel Growth</div><div class="desc">More sign-up completions overall</div></div>
+      <div class="stat"><div class="stat-icon">⚡</div><div class="num">80%+</div><div class="lbl">Faster Spinners</div><div class="desc">Average wait time cut across both spinners</div></div>
+      <div class="stat"><div class="stat-icon">📉</div><div class="num">43%</div><div class="lbl">Less Abandonment</div><div class="desc">Early-funnel drop-off after fix</div></div>
+      <div class="stat"><div class="stat-icon">🗄️</div><div class="num">4.5s→2.5s</div><div class="lbl">DB Lookup Time</div><div class="desc">Email/phone entry, post-migration</div></div>
+      <div class="stat"><div class="stat-icon">⏱️</div><div class="num">24.3min→90s</div><div class="lbl">Confirmation Step</div><div class="desc">Single biggest source of drop-off, fixed</div></div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Metrics shown reflect internal funnel and UX diagnostics measured between June and July 2025, sourced from Hotjar session recordings, Mixpanel flow reports, and an internally-built Excel latency tracker.
+    <br><br>
+    Brought to you by Jessica Whitaker, Marketing Analytics Intern.
+  </div>
+
+</div>
+
+</body>
+</html>
