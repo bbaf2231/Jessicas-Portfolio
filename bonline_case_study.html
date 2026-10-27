@@ -1,397 +1,238 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bOnline: Funnel Diagnostics and UX Optimization</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>bOnline · Jessica Whitaker</title>
+<meta name="description" content="A portfolio case exploring how Jessica Whitaker connected customer behavior, funnel analysis and performance tracking to help bOnline address conversion friction.">
+<meta property="og:title" content="bOnline Case Study | Jessica Whitaker">
+<meta property="og:description" content="A customer-behavior and conversion investigation connecting website friction, cross-team action, and measured improvements.">
+<meta property="og:type" content="website">
 <style>
-:root{
-  --bg:#0B0A14;
-  --bg2:#141225;
-  --panel:rgba(255,255,255,0.04);
-  --panel-strong:rgba(255,255,255,0.07);
-  --line:rgba(255,255,255,0.09);
-  --purple:#7856FF;
-  --purple-light:#A78BFA;
-  --teal:#2DD4BF;
-  --pink:#F472B6;
-  --red:#FB7185;
-  --ink:#F2F1F8;
-  --muted:#9B96B8;
-}
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
-  color:var(--ink);
-  background:
-    radial-gradient(circle at 15% 0%, rgba(120,86,255,0.20), transparent 45%),
-    radial-gradient(circle at 90% 15%, rgba(45,212,191,0.10), transparent 40%),
-    linear-gradient(180deg, #0B0A14 0%, #100E20 50%, #0B0A14 100%);
-  line-height:1.55;
-}
-.wrap{max-width:1100px; margin:0 auto; padding:0 24px 100px;}
+:root{--navy:#112b42;--ink:#19374b;--muted:#526979;--teal:#007d80;--aqua:#42cccc;--pale:#edf6fb;--line:#d5e2e9;--soft:#f7fafb;--white:#fff;--max:1120px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--white);font-family:Inter,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}h1,h2,h3,p,figure{margin:0}h1,h2,h3{font-weight:600;letter-spacing:-.035em}h1{font-size:clamp(42px,5.25vw,68px);line-height:1.035;max-width:820px}h2{font-size:clamp(30px,3.15vw,42px);line-height:1.12}h3{font-size:20px;line-height:1.25}p{max-width:70ch}a{color:inherit}.wrap{max-width:var(--max);margin-inline:auto;padding-inline:32px}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;line-height:1.5}.teal{color:var(--teal)}.muted{color:var(--muted)}.section{padding-block:76px}.section-head{display:grid;grid-template-columns:1.35fr 1fr;gap:72px;align-items:flex-end;margin-bottom:36px}.section-head h2{margin-top:12px}.section-head>p{color:var(--muted);font-size:16px}.rule{border-top:1px solid var(--line)}.icon{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;flex:none}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.topbar{height:72px;border-bottom:1px solid var(--line)}.top-inner{max-width:1440px;margin:auto;padding:0 40px;height:100%;display:flex;align-items:center;justify-content:space-between}.name{font-size:15px;font-weight:650;letter-spacing:-.015em}.top-note{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.hero{padding-top:42px;padding-bottom:48px}.brand-row{display:flex;align-items:center;gap:18px;margin-bottom:31px}.logo{display:block;width:112px;height:46px;object-fit:contain;object-position:left center}.brand-rule{height:25px;width:1px;background:var(--line)}.hero h1 em{font-style:normal;color:var(--teal)}.hero-context{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;margin-top:30px}.hero-context p{font-size:18px;color:var(--muted);line-height:1.55}.role{display:grid;gap:5px;font-size:13px;border-left:2px solid var(--aqua);padding-left:20px;align-content:center}.role strong{font-size:14px;font-weight:600;color:var(--navy)}.hero-anchor{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px;color:var(--muted);font-size:12px}.hero-anchor a{text-decoration:none;color:var(--teal);font-weight:600;display:flex;align-items:center;gap:8px}.hero-anchor .icon{width:16px;height:16px}
+.friction{background:var(--navy);color:#fff;padding-top:52px;padding-bottom:38px;overflow:hidden}.friction-top{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:26px}.friction-top .eyebrow{color:#b5cbd8}.legend{font-size:12px;color:#b5cbd8;display:flex;align-items:center;gap:8px}.legend-dot{width:6px;height:6px;border-radius:50%;background:var(--aqua)}.friction-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #426074;border-bottom:1px solid #426074}.friction-group{padding:28px 22px 29px;border-right:1px solid #426074;min-width:0}.friction-group:first-child{padding-left:0}.friction-group:last-child{border-right:0;padding-right:0}.friction-group>.icon{color:var(--aqua);margin-bottom:20px;width:28px;height:28px}.friction-group h3{font-size:19px;letter-spacing:-.02em;margin-bottom:18px}.mini-ui{height:88px;display:flex;align-items:center;justify-content:center;border:1px solid #456175;background:#1a374d;margin-bottom:20px;padding:15px;position:relative}.mock-button{padding:9px 18px;border:1px solid #8faab9;font-size:12px;color:#d9e8ef;position:relative;display:flex;align-items:center;gap:14px}.mock-button:after{content:"";position:absolute;right:8px;bottom:-11px;width:12px;height:18px;background:var(--aqua);clip-path:polygon(0 0,100% 66%,55% 70%,38% 100%)}.mini-spinner{width:33px;height:33px;border:3px solid #587282;border-right-color:var(--aqua);border-top-color:var(--aqua);border-radius:50%}.ui-caption{font-size:11px;color:#c5d8e3;margin-left:13px;max-width:60px;line-height:1.3}.code-boxes{display:flex;gap:5px}.code-boxes i{display:block;width:20px;height:28px;border:1px solid #8da7b8;background:#24475e}.code-boxes i:first-child{border-bottom:2px solid var(--aqua)}.setup-bars{width:100%;display:grid;gap:7px}.setup-bars span{height:5px;background:#526d80;display:block}.setup-bars span:nth-child(2){width:70%}.setup-bars span:nth-child(3){width:90%}.setup-progress{height:3px!important;width:65%;background:var(--aqua)!important;margin-top:3px}.friction-group p{font-size:14px;line-height:1.5;color:#e1ebf0;margin-bottom:10px}.friction-group .consequence{font-size:12px;line-height:1.45;color:#aac4d3;margin:0}.friction-footer{display:flex;justify-content:space-between;gap:24px;margin-top:20px;font-size:11px;color:#adc5d4}.friction-footer strong{font-weight:500;color:#d8e8ef}
+.evidence-title{max-width:620px}.evidence-title h2{margin-top:12px}.evidence-deck{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.evidence-source{padding:25px 28px 28px;border-right:1px solid var(--line)}.evidence-source:first-child{padding-left:0}.evidence-source:last-child{padding-right:0;border-right:0}.source-top{display:flex;gap:10px;align-items:center;color:var(--teal);font-size:12px;font-weight:650;margin-bottom:15px}.source-top .icon{width:19px;height:19px}.source-tool{font-size:11px;color:var(--muted);font-weight:500;margin-left:auto}.evidence-source h3{font-size:20px;margin-bottom:10px}.evidence-source p{font-size:14px;color:var(--muted)}.evidence-source .source-note{display:block;margin-top:20px;font-size:12px;color:var(--ink);border-left:2px solid var(--aqua);padding-left:10px}.synthesis{background:var(--pale);padding:30px 34px;display:grid;grid-template-columns:1fr 2.1fr;gap:40px;align-items:start;margin-top:24px}.synthesis .eyebrow{color:var(--teal);padding-top:4px}.synthesis h3{font-size:25px;line-height:1.3;max-width:620px}.synthesis p{font-size:14px;color:var(--muted);margin-top:12px;max-width:60ch}
+.commercial{display:grid;grid-template-columns:.7fr 1.7fr;gap:64px;padding:40px 0;border-bottom:1px solid var(--line);border-top:1px solid var(--line)}.commercial-value{font-size:58px;line-height:1;font-weight:500;letter-spacing:-.06em;color:var(--teal);margin:13px 0 9px}.commercial-unit{font-size:12px;line-height:1.5;color:var(--muted);max-width:180px}.commercial-story h2{font-size:25px;margin:6px 0 12px}.commercial-story>p{font-size:15px;color:var(--muted);max-width:64ch}.status-line{margin-top:20px;display:flex;gap:18px;align-items:center;font-size:11px;flex-wrap:wrap}.status-line span{display:flex;gap:6px;align-items:center}.status-line .icon{width:15px;height:15px;color:var(--teal)}.status-line .status-limit{color:var(--muted);border-left:1px solid var(--line);padding-left:18px}
+.handoff{padding-top:0}.collaboration-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:70px}.handoff .section-head{margin-bottom:34px}.handoff-flow{list-style:none;padding:0;margin:0;counter-reset:none}.handoff-flow li{position:relative;padding:0 0 28px 53px;min-height:79px}.handoff-flow li:before{content:"";position:absolute;left:16px;top:33px;bottom:0;width:1px;background:var(--line)}.handoff-flow li:last-child{padding-bottom:0}.handoff-flow li:last-child:before{display:none}.step-icon{position:absolute;left:0;top:0;width:34px;height:34px;border:1px solid #a5c2cc;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;color:var(--teal)}.step-icon .icon{width:17px;height:17px}.actor{font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}.handoff-flow h3{font-size:17px;letter-spacing:-.02em}.handoff-flow p{font-size:13px;color:var(--muted);margin-top:6px;max-width:38ch}.quote-panel{background:var(--pale);padding:32px 34px;align-self:start}.quote-mark{color:var(--teal);font-size:56px;line-height:.9;font-family:Georgia,serif}.quote-panel blockquote{font-size:27px;line-height:1.3;letter-spacing:-.035em;margin:3px 0 18px}.quote-panel cite{font-style:normal;font-size:12px;color:var(--muted)}.technical{margin-top:30px;border-top:1px solid #cadae4;padding-top:20px}.technical .eyebrow{font-size:10px;color:var(--muted)}.technical-value{font-size:31px;line-height:1.2;letter-spacing:-.04em;margin:9px 0;color:var(--navy)}.technical-value .arrow{color:var(--teal);padding:0 9px}.technical p{font-size:12px;color:var(--muted)}
+.outcomes{background:var(--pale)}.outcome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding:31px 0 28px;border-top:1px solid #c3d6e2;border-bottom:1px solid #c3d6e2}.outcome+.outcome{border-left:1px solid #c3d6e2;padding-left:35px}.outcome-value{font-size:54px;line-height:1.08;font-weight:500;letter-spacing:-.055em;color:var(--teal);white-space:nowrap}.outcome-value small{font-size:24px;letter-spacing:-.025em}.outcome h3{font-size:17px;letter-spacing:-.02em;margin-top:14px;max-width:24ch}.outcome p{font-size:12px;color:var(--muted);margin-top:10px}.outcome-note{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:21px;font-size:12px;color:var(--muted)}.learning{padding:45px 0 42px}.learning-inner{display:grid;grid-template-columns:1fr 2.1fr;gap:40px}.learning .eyebrow{color:var(--teal);padding-top:5px}.learning p{font-size:22px;line-height:1.45;letter-spacing:-.02em;color:var(--navy)}details{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding:19px 0}summary{cursor:pointer;font-weight:600;color:var(--muted);width:fit-content}details p{font-size:12px;line-height:1.65;margin-top:15px;max-width:95ch}summary:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offset:5px}footer{padding:17px 0 26px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}.skip{position:absolute;left:20px;top:-100px;background:white;padding:12px;z-index:5}.skip:focus{top:10px}
+.technical .technical-value{font-size:31px;line-height:1.2;color:var(--navy)}.outcome .outcome-value{font-size:54px;line-height:1.08;color:var(--teal);margin-top:0}.learning .eyebrow{font-size:11px;line-height:1.5;letter-spacing:.15em;color:var(--teal)}.timing-exhibit{display:grid;grid-template-columns:.9fr 1.5fr;gap:55px;margin-top:30px;padding:29px 0 9px}.timing-intro .eyebrow{color:var(--teal);font-size:10px}.timing-intro h3{font-size:23px;line-height:1.25;margin-top:9px}.timing-plot{min-width:0}.timing-axis{display:flex;justify-content:space-between;margin-left:110px;font-size:10px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:7px}.timing-row{display:grid;grid-template-columns:110px 1fr;align-items:center;margin-top:17px;font-size:12px}.timing-row strong{font-size:12px;font-weight:500;line-height:1.3}.timing-track{height:23px;position:relative;background:linear-gradient(to right,transparent calc(33.333% - 1px),var(--line) 33.333%,transparent calc(33.333% + 1px),transparent calc(66.666% - 1px),var(--line) 66.666%,transparent calc(66.666% + 1px));border-left:1px solid var(--line)}.timing-range{position:absolute;display:flex;justify-content:center;align-items:center;font-size:11px;font-weight:600;height:23px;border-left:2px solid currentColor;border-right:2px solid currentColor;white-space:nowrap}.wait-range{left:53.333%;width:40%;background:#d3eded;color:#006b70}.exit-range{left:33.333%;width:20%;background:#e2e9ef;color:var(--navy)}.timing-caption{font-size:10px!important;color:var(--muted);margin-top:14px;padding-left:110px}
+@media(min-width:1600px){:root{--max:1200px}h1{font-size:76px;max-width:930px}.section{padding-block:84px}}
+@media(max-width:900px){.section-head{gap:35px;grid-template-columns:1.2fr 1fr}.hero-context{gap:40px}.friction-grid{grid-template-columns:repeat(2,1fr)}.friction-group{padding:25px!important}.friction-group:first-child,.friction-group:nth-child(3){padding-left:0!important}.friction-group:nth-child(2){border-right:0}.friction-group:nth-child(-n+2){border-bottom:1px solid #426074}.friction-group:nth-child(2),.friction-group:nth-child(4){padding-right:0!important}.friction-group p{max-width:32ch}.mini-ui{max-width:300px}.evidence-source{padding-inline:18px}.source-top{flex-wrap:wrap}.source-tool{width:100%;margin-left:29px}.collaboration-grid{gap:35px}.quote-panel{padding:26px}.quote-panel blockquote{font-size:24px}.outcome-grid{gap:24px}.outcome+.outcome{padding-left:24px}.outcome-value{font-size:43px}.outcome-value small{font-size:21px}.commercial{gap:40px}}
+@media(max-width:600px){.wrap{padding-inline:23px}.topbar{height:60px}.top-inner{padding-inline:23px}.top-note{display:none}.hero{padding-top:25px;padding-bottom:30px}.brand-row{gap:14px;margin-bottom:24px}.logo{width:95px;height:39px}.brand-row .eyebrow{font-size:9px;letter-spacing:.1em}.brand-rule{height:20px}h1{font-size:43px;line-height:1.055;letter-spacing:-.045em}.hero-context{grid-template-columns:1fr;gap:25px;margin-top:23px}.hero-context p{font-size:16px}.role{font-size:12px;padding-left:14px;gap:3px}.role strong{font-size:13px}.hero-anchor{margin-top:25px;align-items:start;font-size:10px;gap:15px}.hero-anchor span{max-width:20ch}.hero-anchor a{white-space:nowrap;font-size:11px}.section{padding-block:46px}.section-head{grid-template-columns:1fr;gap:17px;margin-bottom:25px}.section-head>p{font-size:15px}.section-head h2{margin-top:10px}h2{font-size:31px;line-height:1.13}.friction{padding-top:29px;padding-bottom:27px}.friction-top{align-items:start;gap:18px}.friction-top .eyebrow{font-size:10px;max-width:20ch}.legend{font-size:10px;white-space:nowrap;padding-top:1px}.friction-group{padding:21px 0!important}.friction-group:nth-child(odd){padding-right:16px!important}.friction-group:nth-child(even){padding-left:16px!important}.friction-group>.icon{width:24px;height:24px;margin-bottom:13px}.friction-group h3{font-size:16px;min-height:40px;margin-bottom:12px}.mini-ui{height:76px;padding:8px;margin-bottom:14px}.mock-button{font-size:10px;padding:8px;gap:8px}.mini-spinner{width:28px;height:28px;flex:none}.ui-caption{font-size:9px;margin-left:8px}.code-boxes{gap:3px}.code-boxes i{width:15px;height:24px}.friction-group p{font-size:12px}.friction-group .consequence{font-size:11px}.friction-footer{display:block;font-size:10px}.friction-footer>span{display:block;margin-top:9px}.evidence-deck{grid-template-columns:1fr;margin-top:25px}.evidence-source{padding:21px 0!important;border-right:0;border-bottom:1px solid var(--line)}.evidence-source:last-child{border-bottom:0}.source-top{margin-bottom:10px;flex-wrap:nowrap}.source-tool{width:auto;margin-left:auto;font-size:11px}.evidence-source h3{font-size:20px}.evidence-source p{font-size:14px}.evidence-source .source-note{margin-top:12px;font-size:12px}.synthesis{grid-template-columns:1fr;gap:12px;padding:24px 22px;margin-top:20px}.synthesis h3{font-size:23px}.synthesis p{font-size:13px}.commercial{grid-template-columns:1fr;gap:23px;padding:30px 0}.commercial-value{font-size:53px;margin-top:12px}.commercial-unit{max-width:none}.commercial-story h2{font-size:24px;margin-top:0}.commercial-story>p{font-size:14px}.status-line{gap:10px}.status-line .status-limit{border-left:0;padding-left:0;width:100%}.handoff{padding-top:0}.collaboration-grid{grid-template-columns:1fr;gap:29px}.handoff-flow li{padding-bottom:25px}.handoff-flow p{max-width:none}.quote-panel{padding:25px}.quote-panel blockquote{font-size:26px}.technical{margin-top:23px;padding-top:18px}.outcome-grid{grid-template-columns:1fr;gap:0;padding:0}.outcome{display:grid;grid-template-columns:125px 1fr;column-gap:14px;padding:24px 0}.outcome+.outcome{border-left:0;border-top:1px solid #c3d6e2;padding:24px 0}.outcome-value{font-size:43px;grid-row:span 2;align-self:center}.outcome-value small{font-size:20px}.outcome h3{font-size:15px;margin-top:0;align-self:end}.outcome p{font-size:11px;margin-top:6px}.outcome-note{grid-template-columns:1fr;gap:13px;margin-top:20px;font-size:11px}.learning{padding:32px 0}.learning-inner{grid-template-columns:1fr;gap:13px}.learning p{font-size:20px}footer{font-size:10px;padding-bottom:22px}.eyebrow{font-size:10px}.technical-value{font-size:30px}}
+@media(max-width:900px){.outcome .outcome-value{font-size:43px}.timing-exhibit{gap:30px}}
+.learning.wrap{padding-inline:32px}
+@media(max-width:600px){.outcome .outcome-value{font-size:43px}.technical .technical-value{font-size:30px}.learning .eyebrow{font-size:10px}.learning.wrap{padding-inline:23px}.friction-top{display:block}.friction-top .eyebrow{max-width:none}.legend{margin-top:11px}.timing-exhibit{grid-template-columns:1fr;gap:20px;padding-top:10px;margin-top:25px}.timing-intro h3{font-size:22px;max-width:22ch}.timing-axis{margin-left:90px}.timing-row{grid-template-columns:90px 1fr}.timing-row strong{font-size:11px}.timing-caption{padding-left:0}.timing-range{font-size:10px}.timing-track{height:26px}.timing-range{height:26px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{.topbar,.hero-anchor,details{display:none}.section{padding-block:32px}.friction,.outcomes{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font-size:11pt}h1{font-size:38pt}h2{font-size:25pt}.wrap{padding-inline:0}.commercial,.quote-panel,.outcome-grid{break-inside:avoid}}
 
-/* HERO */
-.hero{padding:70px 24px 50px; text-align:center; max-width:900px; margin:0 auto;}
-.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); font-weight:600; margin-bottom:18px;}
-.eyebrow::before{content:"●"; font-size:9px;}
-h1{font-size:clamp(32px,5vw,52px); font-weight:800; margin:0 0 20px; line-height:1.15;}
-h1 span{background:linear-gradient(90deg,var(--purple-light),var(--teal)); -webkit-background-clip:text; background-clip:text; color:transparent;}
-.subtitle{font-size:18px; color:var(--muted); max-width:680px; margin:0 auto;}
-.hero-badges{display:flex; justify-content:center; gap:10px; margin-top:28px; flex-wrap:wrap;}
-.badge{background:var(--panel); border:1px solid var(--line); padding:7px 14px; border-radius:999px; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:6px;}
+/* Original product marks restored above each analytical question. */
+.product-heading{min-height:34px;gap:10px;margin-bottom:16px;flex-wrap:nowrap;color:var(--navy)}
+.product-logo{display:block;width:30px;height:30px;object-fit:contain;flex:none}
+.product-name{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.source-method{margin-left:auto;font-size:11px;font-weight:500;color:var(--muted)}
+@media(max-width:600px){.product-heading{margin-bottom:13px}.product-logo{width:28px;height:28px}.product-name{font-size:14px}}
 
-/* SECTION HEAD */
-.section{margin-top:64px;}
-.section-head{margin-bottom:28px;}
-.section-eyebrow{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--purple-light); font-weight:700; margin-bottom:8px;}
-.section-title{font-size:clamp(22px,3vw,30px); font-weight:800; margin:0; letter-spacing:-0.3px;}
-.section-sub{color:var(--muted); font-size:15.5px; margin-top:8px; max-width:700px;}
+.conversion-exhibit{margin:0 0 34px;padding:27px 0 24px;border-top:1px solid #c3d6e2}
+.conversion-exhibit>h3{font-size:23px;line-height:1.25;margin-bottom:26px}
+.conversion-panels{display:grid;grid-template-columns:1fr 1fr;gap:52px}
+.conversion-panel h4{font-size:14px;font-weight:600;margin:0;letter-spacing:-.01em}
+.conversion-panel h4 span{float:right;font-size:12px;font-weight:600;color:var(--teal);padding-top:2px}
+.conversion-plot{height:170px;position:relative;margin:35px 0 0 32px;background:linear-gradient(to bottom,#c3d6e2 1px,transparent 1px,transparent calc(50% - .5px),#c3d6e2 50%,transparent calc(50% + .5px),transparent calc(100% - 1px),#c3d6e2 calc(100% - 1px))}
+.axis-tick{position:absolute;left:-32px;font-size:10px;color:var(--muted);line-height:1;transform:translateY(-50%)}
+.axis-tick.top{top:0}.axis-tick.middle{top:50%}.axis-tick.bottom{top:100%}
+.conversion-bars{height:100%;display:flex;justify-content:space-around;align-items:flex-end;gap:20px;padding:0 10px}
+.conversion-bar{position:relative;height:var(--rate);width:42px;background:var(--teal)}
+.conversion-bar strong{position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);font-size:12px;white-space:nowrap;font-weight:600;color:var(--navy)}
+.conversion-dates{display:flex;justify-content:space-around;margin:10px 0 0 32px;padding:0 10px;gap:20px;font-size:10px;color:var(--muted)}
+.conversion-dates span{text-align:center;min-width:42px;flex:1}
+.conversion-exhibit figcaption{margin-top:20px;font-size:11px;color:var(--muted);line-height:1.5}
+@media(max-width:600px){.conversion-exhibit{padding-top:23px;margin-bottom:26px}.conversion-exhibit>h3{font-size:22px;margin-bottom:25px}.conversion-panels{grid-template-columns:1fr;gap:31px}.conversion-plot{height:150px;margin-top:30px}.conversion-bar{width:36px}.conversion-dates{font-size:10px}.conversion-exhibit figcaption{font-size:10px}}
 
-/* GLASS PANEL */
-.panel{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:28px;
-  backdrop-filter: blur(14px);
-}
+/* Final readability and interaction refinements; palette and layout retained. */
+.commercial-story h2{line-height:1.25}
+.timing-axis,.axis-tick,.conversion-dates{font-size:11px}
+.timing-caption{font-size:11px!important;line-height:1.55}
+.conversion-exhibit figcaption{font-size:12px}
+summary{min-height:32px;padding-block:6px}
+.hero-anchor a{min-height:32px}
+@media(max-width:600px){.conversion-dates{font-size:11px}.conversion-exhibit figcaption{font-size:11px}.hero-anchor a{min-height:44px}.friction-footer{font-size:11px}.brand-row .eyebrow{font-size:10px;letter-spacing:.08em}}
 
-/* STAR GRID */
-.star-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
-.star-card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px; backdrop-filter:blur(14px);}
-.star-card .label{font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); font-weight:700; border-left:3px solid var(--teal); padding-left:10px; margin-bottom:12px;}
-.star-card p{margin:0; font-size:14.5px; color:#DCD9EE;}
+.evidence-source{display:flex;flex-direction:column}
+.evidence-source>p{margin-bottom:20px}
+.evidence-source .source-note{margin-top:auto}
 
-/* ROLE LIST */
-.role-panel{display:grid; grid-template-columns:1.1fr 1fr; gap:26px; align-items:center;}
-.role-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px;}
-.role-list li{display:grid; grid-template-columns:34px 1fr; gap:14px; align-items:flex-start; font-size:14.5px; color:#DCD9EE;}
-.role-list .li-icon{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:14px; background:radial-gradient(circle at 32% 28%, var(--purple-light), var(--purple)); box-shadow:inset 0 2px 3px rgba(255,255,255,0.35), inset 0 -2px 4px rgba(0,0,0,0.35), 0 4px 10px rgba(120,86,255,0.25);}
-.role-list .li-framework{display:block; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--teal); font-weight:700; margin-bottom:3px;}
-.role-side{background:linear-gradient(145deg, rgba(120,86,255,0.18), rgba(45,212,191,0.08)); border:1px solid var(--line); border-radius:16px; padding:24px;}
-.role-side h4{margin:0 0 6px; font-size:14px; color:var(--purple-light); text-transform:uppercase; letter-spacing:1px;}
-.role-side p{margin:0 0 18px; font-size:14px; color:var(--muted);}
-.role-side p:last-child{margin-bottom:0;}
+/* Business-case narration and exhibit interpretation. Sources are indexed below. */
+.conversion-exhibit .exhibit-label{margin-bottom:11px}
+.conversion-exhibit>h3{margin-bottom:12px}
+.conversion-explanation{font-size:15px;color:var(--muted);max-width:78ch;margin-bottom:27px}
+.conversion-exhibit figcaption{font-size:12px;max-width:none}
+.timing-caption{font-size:12px!important;max-width:64ch}
+.contribution-copy h2{font-size:27px;line-height:1.25;max-width:32ch}
+.learning .contribution-copy p{font-size:15px;line-height:1.65;letter-spacing:0;color:var(--muted);margin-top:16px;max-width:66ch}
+.evidence-index{display:grid;grid-template-columns:190px 1fr;column-gap:28px;row-gap:18px;margin:22px 0 0}
+.evidence-index dt{font-weight:600;color:var(--ink);font-size:12px}
+.evidence-index dd{margin:0;font-size:12px;line-height:1.65;max-width:85ch}
+@media(max-width:600px){.conversion-explanation{font-size:14px;margin-bottom:24px}.conversion-exhibit figcaption{font-size:12px}.timing-caption{font-size:12px!important}.outcome .outcome-value{grid-row:auto}.outcome h3{align-self:center}.contribution-copy h2{font-size:25px}.learning .contribution-copy p{font-size:14px;line-height:1.6}.evidence-index{grid-template-columns:1fr;gap:7px;margin-top:18px}.evidence-index dd{margin-bottom:13px}.evidence-index dt,.evidence-index dd{font-size:12px}}
 
-/* FUNNEL DIAGNOSTIC */
-.diag-grid{display:grid; grid-template-columns:260px 1fr; gap:22px;}
-.diag-issues{display:flex; flex-direction:column; gap:0; border:1px solid var(--line); border-radius:14px; overflow:hidden;}
-.diag-issue{padding:16px 18px; border-bottom:1px solid var(--line); background:var(--panel);}
-.diag-issue:last-child{border-bottom:none;}
-.diag-issue h5{margin:0 0 6px; font-size:12.5px; letter-spacing:1px; text-transform:uppercase; color:var(--red); display:flex; align-items:center; gap:8px;}
-.diag-issue p{margin:0; font-size:13px; color:var(--muted);}
-.funnel-stage-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-.fstage{
-  background:linear-gradient(160deg, rgba(120,86,255,0.16), rgba(255,255,255,0.02));
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:20px;
-  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-  position:relative;
-}
-.fstage:hover{transform:translateY(-3px); border-color:var(--purple-light); box-shadow:0 12px 30px rgba(120,86,255,0.18);}
-.fstage .fs-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
-.fstage .fs-left{display:flex; align-items:center; gap:10px;}
-.fstage .fs-icon{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:15px; background:radial-gradient(circle at 32% 28%, #FDA4AF, var(--red)); box-shadow:inset 0 2px 3px rgba(255,255,255,0.35), inset 0 -2px 4px rgba(0,0,0,0.35), 0 4px 10px rgba(251,113,133,0.25); flex-shrink:0;}
-.fstage .fs-name{font-weight:700; font-size:15px;}
-.fstage .fs-chip{font-size:11px; background:rgba(251,113,133,0.18); color:var(--red); padding:4px 9px; border-radius:999px; font-weight:700; white-space:nowrap;}
-.fstage .fs-detail p{margin:0; font-size:13px; color:var(--muted);}
+/* Follow the same named issues from initial observation to validation. */
+.friction-group .consequence strong{font-weight:500;color:#e1ebf0}
+.diagnosis-exhibit{margin-top:32px;padding-top:27px;border-top:1px solid var(--line)}
+.diagnosis-exhibit>h3,.validation-exhibit>h3{font-size:24px;line-height:1.3;margin-top:12px}
+.exhibit-intro{font-size:14px;color:var(--muted);max-width:86ch;margin-top:13px;margin-bottom:24px}
+.diagnosis-table{border-top:1px solid var(--line)}
+.diagnosis-header,.diagnosis-row{display:grid;grid-template-columns:.9fr 1.15fr 1.1fr;gap:28px}
+.diagnosis-header{font-size:11px;color:var(--muted);padding:12px 0;border-bottom:1px solid var(--line)}
+.diagnosis-row{padding:21px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.5}
+.diagnosis-row strong{font-weight:600;color:var(--navy)}
+.diagnosis-row b{font-size:17px;font-weight:600;color:var(--teal)}
+.diagnosis-row span{display:block;color:var(--muted);font-size:12px;margin-top:5px;max-width:33ch}
+.validation-exhibit{padding-top:27px;border-top:1px solid #c3d6e2}
+.response-comparison{border-collapse:collapse;width:100%;margin-top:24px;text-align:left}
+.response-comparison thead th{font-size:11px;color:var(--muted);font-weight:500;padding:0 15px 12px 0;border-bottom:1px solid #c3d6e2}
+.response-comparison tbody th,.response-comparison td{padding:19px 15px 19px 0;border-bottom:1px solid #c3d6e2;vertical-align:middle}
+.response-comparison tbody th{width:47%;font-size:14px;font-weight:600;letter-spacing:-.01em}
+.response-comparison tbody th span{display:block;margin-top:4px;font-size:12px;font-weight:400;color:var(--muted)}
+.response-comparison td{font-size:27px;line-height:1.2;letter-spacing:-.035em;color:var(--muted)}
+.response-comparison td:last-child{color:var(--teal);font-weight:500}
+.progression-check{margin-top:32px}.progression-check h4{font-size:18px;line-height:1.35;letter-spacing:-.02em;margin:0 0 10px;font-weight:600}
+.progression-check p{font-size:14px;color:var(--muted);max-width:83ch;margin-bottom:24px}
+.validation-exhibit .conversion-panels{gap:52px}
+.validation-exhibit .conversion-panel h5{font-size:13px;font-weight:600;margin:0;letter-spacing:-.01em}
+.validation-exhibit .conversion-panel h5 span{float:right;font-size:12px;font-weight:600;color:var(--teal)}
+.validation-exhibit .conversion-plot{height:110px;margin-top:29px}
+.validation-exhibit .conversion-bar{width:34px}
+.validation-exhibit figcaption{font-size:11px;color:var(--muted);margin-top:17px;line-height:1.5}
+.learning .outcome-grid{margin-top:29px}
+.learning .outcome h3{font-size:16px;line-height:1.3;letter-spacing:-.02em;max-width:26ch}
+.learning .outcome .outcome-value{font-size:48px;line-height:1.1;letter-spacing:-.055em;color:var(--teal);margin:0}
+.learning .contribution-copy .impact-context{font-size:14px;margin-top:16px}
+@media(max-width:600px){.diagnosis-exhibit{margin-top:24px;padding-top:23px}.diagnosis-exhibit>h3,.validation-exhibit>h3{font-size:22px}.exhibit-intro{font-size:14px;margin-bottom:20px}.diagnosis-header{display:none}.diagnosis-row{grid-template-columns:1fr;gap:12px;padding:20px 0}.diagnosis-row>div:first-child{font-size:15px}.diagnosis-row span{max-width:none}.diagnosis-row>div:last-child{padding-left:12px;border-left:2px solid var(--aqua)}.diagnosis-row>div:last-child strong{font-size:12px}.diagnosis-row b{font-size:18px}.validation-exhibit{padding-top:23px}.response-comparison thead th{font-size:10px;padding-right:8px;line-height:1.4}.response-comparison tbody th{width:44%;font-size:12px}.response-comparison tbody th span{font-size:11px}.response-comparison tbody th,.response-comparison td{padding:17px 8px 17px 0}.response-comparison td{font-size:21px;white-space:nowrap}.response-comparison td:last-child{padding-right:0}.progression-check{margin-top:26px}.progression-check h4{font-size:18px}.progression-check p{font-size:13px}.validation-exhibit .conversion-panels{gap:28px}.validation-exhibit .conversion-plot{height:100px;margin-top:28px}.validation-exhibit figcaption{font-size:11px}.learning .outcome-grid{margin-top:24px}.learning .outcome .outcome-value{font-size:42px}.learning .outcome h3{font-size:14px}.learning .contribution-copy .impact-context{font-size:14px}}
 
-/* STAT TILES */
-.stat-bar{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
-.stat{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 14px; text-align:center;}
-.stat-icon{width:40px; height:40px; border-radius:12px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:18px; background:radial-gradient(circle at 35% 30%, var(--purple-light), var(--purple)); box-shadow:inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3);}
-.stat .num{font-size:22px; font-weight:800; color:var(--teal);}
-.stat .lbl{font-size:12px; font-weight:700; margin-top:4px;}
-.stat .desc{font-size:11px; color:var(--muted); margin-top:4px;}
-
-/* DASHBOARD CARD (mixpanel style) */
-.dash-card{background:linear-gradient(160deg,#161327,#0D0B18); border:1px solid var(--line); border-radius:16px; padding:24px;}
-.dash-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:8px;}
-.dash-head h4{margin:0; font-size:15px; font-weight:700;}
-.dash-tag{font-size:11px; color:var(--purple-light); background:rgba(120,86,255,0.15); padding:4px 10px; border-radius:999px; font-weight:700;}
-.legend{display:flex; gap:16px; font-size:12px; color:var(--muted); margin-bottom:14px;}
-.legend span{display:flex; align-items:center; gap:6px;}
-.legend i{width:10px; height:10px; border-radius:3px; display:inline-block;}
-
-/* BAR CHART */
-.bars{display:flex; align-items:flex-end; gap:26px; height:180px; padding:0 6px;}
-.bar-group{display:flex; flex-direction:column; align-items:center; gap:8px; flex:1;}
-.bar-pair{display:flex; align-items:flex-end; gap:5px; height:150px;}
-.bar{width:22px; border-radius:6px 6px 0 0; position:relative;}
-.bar.purple{background:linear-gradient(180deg,var(--purple-light),var(--purple));}
-.bar.teal{background:linear-gradient(180deg,#5EEAD4,var(--teal));}
-.bar .val{position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:10.5px; color:var(--muted); white-space:nowrap;}
-.bar-group .glabel{font-size:11.5px; color:var(--muted); text-align:center;}
-
-/* LATENCY BARS (horizontal before/after) */
-.lat-rows{display:flex; flex-direction:column; gap:20px;}
-.lat-row{display:grid; grid-template-columns:110px 1fr 90px; align-items:center; gap:14px;}
-.lat-name{font-size:13.5px; font-weight:600;}
-.lat-track{background:rgba(255,255,255,0.06); border-radius:8px; height:14px; overflow:hidden; position:relative;}
-.lat-fill{height:100%; border-radius:8px; background:linear-gradient(90deg,var(--purple),var(--teal));}
-.lat-pct{font-size:12.5px; color:var(--teal); font-weight:700; text-align:right;}
-
-/* Approve-style click hint reused as toggle hint */
-.click-hint{font-size:12px; color:var(--purple-light); text-align:center; margin-top:8px;}
-
-/* PROOF / QUOTE CARDS */
-.quote-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px;}
-.quote-card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px;}
-.quote-card p{margin:0; font-size:13.5px; color:#DCD9EE; font-style:italic;}
-.quote-card .who{margin-top:10px; font-size:12px; color:var(--muted); font-style:normal;}
-
-/* SKILLS GRID */
-.skills-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
-.skill-card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; text-align:center;}
-.skill-icon{width:44px; height:44px; border-radius:12px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; background:radial-gradient(circle at 35% 30%, var(--purple-light), var(--purple)); box-shadow:inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3);}
-.skill-card h5{margin:0 0 8px; font-size:13.5px;}
-.skill-card p{margin:0; font-size:12px; color:var(--muted); text-align:left;}
-.skill-card ul{margin:0; padding-left:16px; text-align:left; font-size:12px; color:var(--muted);}
-.skill-card li{margin-bottom:4px;}
-
-/* CLOSING */
-.produced{margin-top:70px; position:relative;}
-.produced::before{content:""; display:block; width:60px; height:3px; background:linear-gradient(90deg,var(--purple),var(--teal)); margin-bottom:18px; border-radius:2px;}
-.produced-eyebrow{font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); font-weight:700; margin-bottom:8px;}
-.produced-head{font-size:clamp(26px,3.4vw,36px); font-weight:800; margin:0 0 14px;}
-.produced-sub{color:var(--muted); font-size:15.5px; max-width:720px; margin-bottom:26px;}
-
-.disclaimer{margin-top:60px; font-size:12.5px; color:var(--muted); border-top:1px solid var(--line); padding-top:22px; line-height:1.7;}
-
-@media (max-width:760px){
-  .role-panel, .diag-grid, .quote-grid{grid-template-columns:1fr;}
-  .stat-bar, .skills-grid, .funnel-stage-grid, .star-grid{grid-template-columns:repeat(2,1fr);}
-  .bars{gap:12px;}
-}
+/* Compact exhibits: navy findings panel; visually prioritized relative time savings. */
+.commercial .eyebrow{white-space:nowrap}
+.diagnosis-exhibit{background:var(--navy);color:#fff;border:0;padding:25px 27px 12px;margin-top:28px}
+.diagnosis-exhibit>.eyebrow{color:var(--aqua)}
+.diagnosis-exhibit>h3{color:#fff;font-size:22px;line-height:1.25;margin-top:10px}
+.diagnosis-exhibit .exhibit-intro{font-size:13px;color:#c5d8e3;line-height:1.5;margin-top:10px;margin-bottom:17px;max-width:78ch}
+.diagnosis-table{border-top:1px solid #426074}
+.diagnosis-header,.diagnosis-row{grid-template-columns:.95fr 1.12fr 1.13fr;gap:20px}
+.diagnosis-header{font-size:10px;color:#b5cbd8;padding:10px 0;border-bottom-color:#426074}
+.diagnosis-row{font-size:12px;padding:14px 0;line-height:1.45;border-bottom-color:#426074}
+.diagnosis-row:last-child{border-bottom:0}
+.diagnosis-row strong{color:#fff;font-size:12px}
+.diagnosis-row b{font-size:15px;color:var(--aqua)}
+.diagnosis-row span{font-size:11px;color:#c5d8e3;margin-top:4px}
+.diagnosis-row>.follow-cell{display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:start}
+.follow-cell>.icon{width:19px;height:19px;color:var(--aqua);margin-top:1px}
+.response-comparison{table-layout:fixed;margin-top:20px}
+.response-comparison thead th{font-size:11px;padding:0 10px 10px 0}
+.response-comparison thead th:first-child,.response-comparison tbody th{width:40%}
+.response-comparison thead th:not(:first-child){width:20%}
+.response-comparison tbody th,.response-comparison td{padding:14px 10px 14px 0}
+.response-comparison tbody th{font-size:13px}
+.response-comparison tbody th span{font-size:11px;margin-top:3px}
+.response-comparison .time-before{font-size:18px;color:var(--muted);letter-spacing:-.025em}
+.response-comparison .time-after{font-size:23px;color:var(--teal);font-weight:500;letter-spacing:-.03em}
+.response-comparison .time-reduction{color:var(--navy);font-size:28px;letter-spacing:-.035em}
+.time-reduction strong{display:inline-flex;align-items:baseline;gap:1px;background:var(--navy);color:#fff;padding:6px 12px;font-size:28px;line-height:1.1;font-weight:600;letter-spacing:-.035em}
+.time-reduction strong span{font-size:18px;color:var(--aqua);font-weight:500}
+@media(max-width:600px){.diagnosis-exhibit{padding:22px 18px 7px;margin-top:24px}.diagnosis-exhibit>h3{font-size:21px}.diagnosis-exhibit .exhibit-intro{font-size:13px;margin-bottom:16px}.diagnosis-header{display:none}.diagnosis-row{grid-template-columns:.95fr 1.15fr;gap:10px 13px;padding:15px 0}.diagnosis-row>div:first-child{font-size:13px;line-height:1.4}.diagnosis-row>div:first-child strong{font-size:13px}.diagnosis-row b{font-size:15px}.diagnosis-row span{font-size:12px;max-width:none}.diagnosis-row>.follow-cell{grid-column:1/-1;border-left:0;padding-left:0;grid-template-columns:20px 1fr;gap:8px}.diagnosis-row>.follow-cell strong{font-size:12px}.diagnosis-row>.follow-cell span{font-size:11px;margin-top:2px}.response-comparison thead th:first-child,.response-comparison tbody th{width:34%}.response-comparison thead th:nth-child(2){width:21%}.response-comparison thead th:nth-child(3){width:21%}.response-comparison thead th:last-child{width:24%}.response-comparison thead th{font-size:10px;padding-right:5px;line-height:1.35}.response-comparison tbody th,.response-comparison td{padding:13px 5px 13px 0}.response-comparison tbody th{font-size:11px}.response-comparison tbody th span{font-size:10px}.response-comparison .time-before{font-size:15px;letter-spacing:-.03em}.response-comparison .time-after{font-size:19px}.response-comparison .time-reduction{font-size:23px}.time-reduction strong{font-size:23px;padding:5px 7px}.time-reduction strong span{font-size:14px}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="cursor" viewBox="0 0 24 24"><path d="m5 3 14 9-7 2-3 7-4-18Z"/><path d="m13 15 4 5M3 1v1M1 5h1M9 1l-1 2"/></symbol>
+<symbol id="loader" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-8-8M16 4h4v4M20 4l-6 6"/></symbol>
+<symbol id="message" viewBox="0 0 24 24"><path d="M4 4h16v12H9l-5 4V4Z"/><path d="M8 8h8M8 12h5"/></symbol>
+<symbol id="phone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 5h6M10 18h4M9 10l2 2 4-4"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m10 8 6 4-6 4V8Z"/></symbol>
+<symbol id="chart" viewBox="0 0 24 24"><path d="M4 3v17h17M8 15v-4M13 15V7M18 15V4"/></symbol>
+<symbol id="table" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M3 15h18M10 3v18"/></symbol>
+<symbol id="presentation" viewBox="0 0 24 24"><path d="M3 4h18v12H3zM12 16v6M8 22l4-4 4 4M7 12l3-3 3 2 4-5"/></symbol>
+<symbol id="code" viewBox="0 0 24 24"><path d="m7 6-5 6 5 6M17 6l5 6-5 6M14 3l-4 18"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M12 4v16M6 14l6 6 6-6"/></symbol>
+</defs></svg>
+<a href="#case" class="skip">Skip to case study</a>
+<header class="topbar"><div class="top-inner"><span class="name">Jessica Whitaker</span><span class="top-note">Selected work · Customer & business analysis</span></div></header>
+<main id="case">
+<section class="hero wrap" aria-labelledby="case-title">
+<div class="brand-row"><img class="logo" src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ibG9nby1zdmciIHZpZXdCb3g9IjAgMCAxNzIgNzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJiT25saW5lIj48ZyBmaWxsPSIjNDJDQ0NDIj48cGF0aCBkPSJNNzEuMzc2NSAyMC44MDcyQzY4LjEzMyAyMC44MDcyIDY1Ljk2MTcgMjMuMzM1OSA2NS45NjE3IDI3LjA5MjdDNjUuOTYxNyAzMC44NDk2IDY4LjEzNjggMzMuMzc4MiA3MS4zNzY1IDMzLjM3ODJDNzQuNjE2MiAzMy4zNzgyIDc2Ljc5MTIgMzAuODQ5NiA3Ni43OTEyIDI3LjA5MjdDNzYuNzkxMiAyMy4zMzU5IDc0LjYxNjIgMjAuODA3MiA3MS4zNzY1IDIwLjgwNzJaTTcxLjM3NjUgNDEuMjg3NEM2Mi45NTQgNDEuMjg3NCA1Ny4zNDE1IDM1LjU5NTEgNTcuMzQxNSAyNy4wOTY1QzU3LjM0MTUgMTguNTk4IDYyLjk1NCAxMi44MjU4IDcxLjM3NjUgMTIuODI1OEM3OS43OTkgMTIuODI1OCA4NS40MTE1IDE4LjUxODEgODUuNDExNSAyNy4wOTY1Qzg1LjQxMTUgMzUuNjc0OSA3OS43OTkgNDEuMjg3NCA3MS4zNzY1IDQxLjI4NzRaIi8+PHBhdGggZD0iTTkyLjY0MzggMjAuNjQ3NUM5My45MTAxIDE5LjI2MzQgOTYuNTk4NCAxOC40MzQ1IDk5LjAwOTIgMTguNDM0NUMxMDQuMzg2IDE4LjQzNDUgMTA3LjMxIDIwLjkyNTEgMTA3LjMxIDI3LjA5MjdWNDAuMTM5MUMxMDcuMzEgNDAuNDU0NyAxMDcuMDMyIDQwLjczMjMgMTA2LjcxNyA0MC43MzIzSDk5Ljc1ODNDOTkuNDQyNyA0MC43MzIzIDk5LjE2NTEgNDAuNDU0NyA5OS4yMDMxIDQwLjEzOTFWMjguMzIwOUM5OS4yMDMxIDI2LjczOTEgOTguNDkyMSAyNS44MzAzIDk3LjI2NzcgMjUuODMwM0M5NS4wMTI4IDI1LjgzMDMgOTQuNjU5MSAyOC4wNDM0IDk0LjY1OTEgMjguMDQzNFY0MC4xMzkxQzk0LjY1OTEgNDAuNDU0NyA5NC4zODE2IDQwLjczMjMgOTQuMDY2IDQwLjczMjNIODcuMTA3NEM4Ni43OTE4IDQwLjczMjMgODYuNTE0MiA0MC40NTQ3IDg2LjUxNDIgNDAuMTM5MVYxOS41NDFDODYuNTE0MiAxOS4xODc0IDg2LjcxMTkgMTguOTg1OCA4Ny4wNjU2IDE4Ljk4NThIOTEuNDk1NUM5MS43NzMxIDE4Ljk4NTggOTIuMDA4OCAxOS4xMDM3IDkyLjEyNjcgMTkuMzgxM0w5Mi42NCAyMC42NDc1SDkyLjY0MzhaIi8+PHBhdGggZD0iTTExNi4wODYgMTIuMDY5MUMxMTYuNDAyIDEyLjA2OTEgMTE2LjY3OSAxMi4zNDY3IDExNi42NzkgMTIuNjI0M1Y0MC4xMzkxQzExNi42NzkgNDAuNDU0NyAxMTYuNDAyIDQwLjczMjMgMTE2LjA4NiA0MC43MzIzSDEwOS4xMjhDMTA4LjgxMiA0MC43MzIzIDEwOC41MzQgNDAuNDU0NyAxMDguNTM0IDQwLjEzOTFWMTIuNjI0M0MxMDguNTM0IDEyLjM0NjcgMTA4LjgxMiAxMi4wNjkxIDEwOS4xMjggMTIuMDY5MUgxMTYuMDg2WiIvPjxwYXRoIGQ9Ik0xMjUuNzcxIDE4Ljk4OTZDMTI2LjA4NyAxOC45ODk2IDEyNi4zNjQgMTkuMjY3MiAxMjYuMzY0IDE5LjU0MVY0MC4xMzkxQzEyNi4zNjQgNDAuNDU0NyAxMjYuMDg3IDQwLjczMjMgMTI1Ljc3MSA0MC43MzIzSDExOC44MTNDMTE4LjQ5NyA0MC43MzIzIDExOC4yMTkgNDAuNDU0NyAxMTguMjE5IDQwLjEzOTFWMTkuNTQxQzExOC4yMTkgMTkuMjYzNCAxMTguNDk3IDE4Ljk4OTYgMTE4LjgxMyAxOC45ODk2SDEyNS43NzFaTTEyNi42IDE0LjM2MkMxMjYuNiAxNi42OTI5IDEyNC44NjIgMTguMjc0OCAxMjIuMjUgMTguMjc0OEMxMTkuNjM4IDE4LjI3NDggMTE3LjkgMTYuNjkyOSAxMTcuOSAxNC4zNjJDMTE3LjkgMTEuOTA5NCAxMTkuNjM4IDEwLjI4OTUgMTIyLjI1IDEwLjI4OTVDMTI0Ljg2MiAxMC4yODk1IDEyNi42IDExLjkwOTQgMTI2LjYgMTQuMzYyWiIvPjxwYXRoIGQ9Ik0xMzMuOTU0IDIwLjY0NzVDMTM1LjIyIDE5LjI2MzQgMTM3LjkwOSAxOC40MzQ1IDE0MC4zMTkgMTguNDM0NUMxNDUuNjk2IDE4LjQzNDUgMTQ4LjYyIDIwLjkyNTEgMTQ4LjYyIDI3LjA5MjdWNDAuMTM5MUMxNDguNjIgNDAuNDU0NyAxNDguMzQzIDQwLjczMjMgMTQ4LjAyNyA0MC43MzIzSDE0MS4wNjlDMTQwLjc1MyA0MC43MzIzIDE0MC40NzUgNDAuNDU0NyAxNDAuNTEzIDQwLjEzOTFWMjguMzIwOUMxNDAuNTEzIDI2LjczOTEgMTM5LjgwMiAyNS44MzAzIDEzOC41NzggMjUuODMwM0MxMzYuMzIzIDI1LjgzMDMgMTM1Ljk2OSAyOC4wNDM0IDEzNS45NjkgMjguMDQzNFY0MC4xMzkxQzEzNS45NjkgNDAuNDU0NyAxMzUuNjkyIDQwLjczMjMgMTM1LjM3NiA0MC43MzIzSDEyOC40MThDMTI4LjEwMiA0MC43MzIzIDEyNy44MjQgNDAuNDU0NyAxMjcuODI0IDQwLjEzOTFWMTkuNTQxQzEyNy44MjQgMTkuMTg3NCAxMjguMDIyIDE4Ljk4NTggMTI4LjM3NiAxOC45ODU4SDEzMi44MDZDMTMzLjA4MyAxOC45ODU4IDEzMy4zMTkgMTkuMTAzNyAxMzMuNDM3IDE5LjM4MTNMMTMzLjk1IDIwLjY0NzVIMTMzLjk1NFoiLz48cGF0aCBkPSJNMTYzLjI0NSAyNy45NjM1QzE2My4yNDUgMjYuMjIyIDE2Mi4xNzYgMjUuMDc3NCAxNjAuNTk0IDI1LjA3NzRDMTU4LjgxNSAyNS4wNzc0IDE1Ny42MjggMjYuMjIyIDE1Ny42MjggMjcuOTYzNUgxNjMuMjQxSDE2My4yNDVaTTE2OS4zMzIgMzguNTE5MkMxNjkuNDEyIDM4Ljc5NjggMTY5LjMzMiAzOC45NTI3IDE2OS4wNTUgMzkuMTEyNEMxNjYuOTYgNDAuNDk2NSAxNjMuOTE0IDQxLjMyNTQgMTYwLjg3MiA0MS4zMjU0QzE1My44NzUgNDEuMzI1NCAxNDkuMjEgMzYuNzM5NiAxNDkuMjEgMjkuODk5QzE0OS4yMSAyMy4wNTgzIDE1My43OTUgMTguNDM0NSAxNjAuNjc0IDE4LjQzNDVDMTY3LjU1MyAxOC40MzQ1IDE3MS4xMTIgMjIuNjYyOCAxNzEuMTEyIDI5Ljg2MDlDMTcxLjExMiAzMC40NTQxIDE3MS4wNzQgMzEuMDQ3MyAxNzAuOTUyIDMxLjY0MDVDMTcwLjkxNCAzMS45NTYxIDE3MC43MTYgMzIuMTE1OCAxNzAuMzU5IDMyLjExNThIMTU3LjY3QzE1Ny42NyAzMi4xMTU4IDE1Ny42NyAzNC42MDY0IDE2MC45OSAzNC42MDY0QzE2My4wMDUgMzQuNjA2NCAxNjUuMjYgMzQuMTMxMSAxNjcuMDM5IDMzLjMwMjJDMTY3LjMxNyAzMy4xODQzIDE2Ny41NTMgMzMuMzQwMiAxNjcuNjMzIDMzLjYxNzhMMTY5LjMzMiAzOC41MTkyWiIvPjxwYXRoIGQ9Ik0zMi45NzUyIDQxLjkyMjRDMzAuMzQ3NyA0Mi4yNjg1IDI3LjcwNDkgNDEuNTgwMiAyNi4wMDkgNDAuMjA3NUwyNS42MDYgNDEuNjk4MUMyNS40OTU3IDQyLjA3MDcgMjUuMzI4NCA0Mi4zMzMxIDI1LjA1NDYgNDIuMzY3M0wyMC42MjQ3IDQyLjk0OTFDMjAuMzA5MSA0Mi45OTA5IDIwLjAwMTEgNDIuNzUxNCAxOS45NTkzIDQyLjQzOTZMMTYuMzY5NyAxNS4xNjA1QzE2LjMzMTcgMTQuODg2NyAxNi41NzEyIDE0LjU3NDkgMTYuODg2OCAxNC41MzMxTDIzLjc4NDYgMTMuNjI0M0MyNC4xMDAyIDEzLjU4MjUgMjQuNDA4MiAxMy44MjIgMjQuNDQ2MiAxNC4wOTU4TDI1LjQwMDYgMjEuMzQ3MkMyNi40NTM5IDIwLjI1MjEgMjguMTQyMiAxOS40NzI1IDI5Ljk4NjQgMTkuMjI5MkMzNi4xODA3IDE4LjQxNTQgNDAuOTMzOCAyMi40MTU3IDQxLjgyMzYgMjkuMTk1NUM0Mi43MjEgMzYuMDEzNCAzOS4xNjU2IDQxLjEwODcgMzIuOTcxNCA0MS45MjI0TTQ5LjMxMDcgMEwwIDExLjY1ODRMNy41Mjg5MyA1NC4zNTY2TDIwLjE2ODQgNTIuNDQwMUwzNy43MjQ1IDY5Ljk5MjRMNDEuMTgwOSA0OS4yNTc0TDU4LjMzNzggNDYuNjU2NUw0OS4zMTA3IDBaIi8+PHBhdGggZD0iTTI5LjE5MTcgMjYuMTkxNUMyNy44MTkgMjYuMzc0MSAyNi42NzgzIDI3LjQwMDcgMjYuMzc3OSAyOC43NTQ0TDI3LjAyODEgMzMuNjkzOEMyNy42NzA3IDM0LjkyNTkgMjkuMDM1OCAzNS42MjE3IDMwLjQwODUgMzUuNDQzQzMyLjU2NDUgMzUuMTU3OCAzMy43NjYxIDMzLjA4NTQgMzMuMzk3MyAzMC4yNjRDMzMuMDM2IDI3LjUxODYgMzEuMzQ3NyAyNS45MDY0IDI5LjE5MTcgMjYuMTkxNVoiLz48L2c+PC9zdmc+" alt="bOnline" width="112" height="46"><span class="brand-rule" aria-hidden="true"></span><span class="eyebrow muted">Marketing analytics & UX<br>London · Summer 2025</span></div>
+<h1 id="case-title">Where were customers<br>getting stuck—<br><em>and what was it costing?</em></h1>
+<div class="hero-context"><p>bOnline provides phone systems and broadband to UK small businesses. The investigation with the Head of Marketing examined website friction affecting purchase, account creation and phone-service setup.</p><div class="role"><strong>Marketing Analytics & UX Intern</strong><span>May–August 2025</span><span>Behavioral research · Funnel analysis · Performance tracking</span></div></div>
+<div class="hero-anchor"><span>A website-wide investigation across different customer journeys</span><a href="#friction">Explore the evidence <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></div>
+</section>
 
-  <div class="hero">
-    <div class="eyebrow">bOnline · Marketing Analytics Internship</div>
-    <h1>Finding Why Users Were <span>Dropping Off</span>, Then Proving the Fix</h1>
-    <p class="subtitle">A UX and funnel diagnostics project where I traced sign-up drop-offs back to page load latency, partnered with the CTO on the backend fix, and tracked the before-and-after impact across four weeks.</p>
-    <div class="hero-badges">
-      <div class="badge">Mixpanel</div>
-      <div class="badge">Hotjar</div>
-      <div class="badge">Excel</div>
-      <div class="badge">CRM / API Diagnostics</div>
-    </div>
-  </div>
-
-  <!-- STAR INTRO -->
-  <div class="section">
-    <div class="star-grid">
-      <div class="star-card">
-        <div class="label">Situation</div>
-        <p>bOnline is a multi-award-winning UK VoIP and business broadband provider for small businesses. The sign-up funnel had a quiet problem: a meaningful share of users were abandoning before they ever got an account, and no one had pinned down why.</p>
-      </div>
-      <div class="star-card">
-        <div class="label">Task</div>
-        <p>As Marketing Analytics Intern, I was asked to dig into 1,000+ Hotjar recordings and Mixpanel flow data to find where users were actually getting stuck, then turn that into something the team could act on.</p>
-      </div>
-      <div class="star-card">
-        <div class="label">Action</div>
-        <p>I built an Excel tracking system to log latency at every funnel step, isolated three severe bottlenecks, and worked directly with the CTO on a database migration and API fix. Then I re-measured every week to prove the fix actually worked.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ROLE -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-eyebrow">Role Scope</div>
-      <h2 class="section-title">Diagnostic Approach and Core Responsibilities</h2>
-    </div>
-    <div class="panel role-panel">
-      <ul class="role-list">
-        <li><div class="li-icon">🔍</div><div><span class="li-framework">Root-Cause Diagnosis</span>Applied a structured, evidence-first approach across 1,000+ Hotjar session recordings and Mixpanel flow data to isolate the specific latency drivers behind a 40%+ early-funnel exit rate.</div></li>
-        <li><div class="li-icon">📐</div><div><span class="li-framework">Measurement Framework</span>Designed an Excel-based tracking model to quantify response times at every funnel step, turning anecdotal friction into a testable, step-by-step dataset.</div></li>
-        <li><div class="li-icon">🤝</div><div><span class="li-framework">Cross-Functional Execution</span>Partnered with the CTO on query and API optimization, contributing to a database migration that reduced lookup times from 4.5s to 2.5s.</div></li>
-        <li><div class="li-icon">📊</div><div><span class="li-framework">Impact Validation</span>Re-tested weekly against the same tracker to confirm the fix held, translating an 80%+ spinner speed gain into a 7.6-point lift in sign-up completions.</div></li>
-      </ul>
-      <div class="role-side">
-        <h4>Team</h4>
-        <p>Collaborated closely with the Head of Marketing and the Marketing Analytics team, and partnered cross-functionally with Design, Development, and Product to turn findings into shipped fixes.</p>
-        <h4>About bOnline</h4>
-        <p>A multi-award-winning UK company providing low-cost, reliable VoIP phone systems and business broadband, built on the UK's #1 carrier network. Comms Council UK Winner, 2021–2024.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- DIAGNOSIS DASHBOARD -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-eyebrow">Diagnostic Findings</div>
-      <h2 class="section-title">Isolating the Early-Funnel Bottlenecks</h2>
-      <p class="section-sub">Four points in the sign-up flow accounted for nearly all severe-impact drop-offs, identified through session-replay analysis and cross-referenced against funnel timing data.</p>
-    </div>
-    <div class="diag-grid">
-      <div class="diag-issues">
-        <div class="diag-issue"><h5>⛔ Verification Errors</h5><p>Users got stuck or confused entering codes.</p></div>
-        <div class="diag-issue"><h5>🔒 Unresponsive Controls</h5><p>Key buttons failed to register clicks.</p></div>
-        <div class="diag-issue"><h5>👤 Idle Abandonment</h5><p>Users paused for long stretches, unsure how to proceed.</p></div>
-      </div>
-      <div class="funnel-stage-grid" id="funnelGrid">
-        <div class="fstage">
-          <div class="fs-top"><div class="fs-left"><div class="fs-icon">⏳</div><span class="fs-name">Email Spinner</span></div><span class="fs-chip">avg ~11s</span></div>
-          <div class="fs-detail"><p>Load time ranged 8 to 14 seconds. Drop-offs concentrated once wait exceeded 5 to 8 seconds, causing immediate exits.</p></div>
-        </div>
-        <div class="fstage">
-          <div class="fs-top"><div class="fs-left"><div class="fs-icon">🔘</div><span class="fs-name">Continue Button</span></div><span class="fs-chip">23 to 25s</span></div>
-          <div class="fs-detail"><p>Button unresponsiveness during the confirmation flow, compounded by overlapping account-creation behavior.</p></div>
-        </div>
-        <div class="fstage">
-          <div class="fs-top"><div class="fs-left"><div class="fs-icon">🔢</div><span class="fs-name">PIN Provisioning</span></div><span class="fs-chip">40% drop-off</span></div>
-          <div class="fs-detail"><p>Provisioning exceeded 3 minutes. Lagging and frozen states drove 40% of users to abandon at this page.</p></div>
-        </div>
-        <div class="fstage">
-          <div class="fs-top"><div class="fs-left"><div class="fs-icon">📧</div><span class="fs-name">Confirmation Code</span></div><span class="fs-chip">24.3 min</span></div>
-          <div class="fs-detail"><p>Prior to the fix, this step averaged 24.3 minutes from send to entry, the single largest source of funnel drop-off.</p></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- LATENCY IMPACT DASHBOARD -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-eyebrow">The Fix, Measured</div>
-      <h2 class="section-title">Four Weeks of Latency Tracking</h2>
-      <p class="section-sub">After the CTO-led database migration and API query optimization, I re-measured every stage weekly using the same Excel tracker to confirm the fix was actually holding.</p>
-    </div>
-    <div class="dash-card">
-      <div class="dash-head">
-        <h4>Response Time Reduction, Overall</h4>
-        <span class="dash-tag">Excel latency tracker</span>
-      </div>
-      <div class="lat-rows">
-        <div class="lat-row">
-          <div class="lat-name">Email Spinner</div>
-          <div class="lat-track"><div class="lat-fill" style="width:89%"></div></div>
-          <div class="lat-pct">89% faster</div>
-        </div>
-        <div class="lat-row">
-          <div class="lat-name">Continue / SMS</div>
-          <div class="lat-track"><div class="lat-fill" style="width:95%"></div></div>
-          <div class="lat-pct">95% faster</div>
-        </div>
-        <div class="lat-row">
-          <div class="lat-name">PIN Spinner</div>
-          <div class="lat-track"><div class="lat-fill" style="width:69%"></div></div>
-          <div class="lat-pct">69% faster</div>
-        </div>
-      </div>
-      <p class="click-hint" style="margin-top:18px; color:var(--muted); font-style:italic;">"Migration cut lookup time from 4.5s to 2.5s for email and phone entry," from project notes on the database migration.</p>
-    </div>
-  </div>
-
-  <!-- CONVERSION DASHBOARD -->
-  <div class="section">
-    <div class="dash-card">
-      <div class="dash-head">
-        <h4>Step-Level Conversion Rate (Week Over Week)</h4>
-        <span class="dash-tag">Mixpanel funnel report</span>
-      </div>
-      <div class="legend">
-        <span><i style="background:var(--purple-light)"></i>Continue with Email</span>
-        <span><i style="background:var(--teal)"></i>Create Account</span>
-      </div>
-      <div class="bars">
-        <div class="bar-group">
-          <div class="bar-pair">
-            <div class="bar purple" style="height:62.6%"><span class="val">62.6%</span></div>
-            <div class="bar teal" style="height:87%"><span class="val">87.0%</span></div>
-          </div>
-          <div class="glabel">Jun 30–Jul 7</div>
-        </div>
-        <div class="bar-group">
-          <div class="bar-pair">
-            <div class="bar purple" style="height:65.3%"><span class="val">65.3%</span></div>
-            <div class="bar teal" style="height:92.8%"><span class="val">92.8%</span></div>
-          </div>
-          <div class="glabel">Jul 8–15</div>
-        </div>
-        <div class="bar-group">
-          <div class="bar-pair">
-            <div class="bar purple" style="height:66.3%"><span class="val">66.3%</span></div>
-            <div class="bar teal" style="height:93.6%"><span class="val">93.6%</span></div>
-          </div>
-          <div class="glabel">Jul 16–22</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- QUOTES -->
-  <div class="section">
-    <div class="quote-grid">
-      <div class="quote-card">
-        <p>"Before the UI fix, 12.5% dropped after the email spinner. After the fix, 0 drop-offs: improved spinner speed and code delivery kept all users moving forward."</p>
-        <div class="who">Project findings, confirmation step</div>
-      </div>
-      <div class="quote-card">
-        <p>"Combined improvements reduced average wait times by over 80% across both spinners, significantly enhancing user flow and reducing drop-offs."</p>
-        <div class="who">Project findings, overall impact</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SKILLS -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-eyebrow">How I Got There</div>
-      <h2 class="section-title">Tools &amp; Skills Behind the Diagnosis</h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-icon">M</div>
-        <h5>Mixpanel</h5>
-        <ul><li>Built funnel reports and segmented users</li><li>Tracked in-app events and conversion metrics</li></ul>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">H</div>
-        <h5>Hotjar</h5>
-        <ul><li>Analyzed session replays for UX friction</li><li>Linked behavioral cues to quantitative metrics</li></ul>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">X</div>
-        <h5>Excel</h5>
-        <ul><li>Built a latency tracking system from scratch</li><li>Logged response times across every funnel step</li></ul>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">📊</div>
-        <h5>Data Analysis</h5>
-        <ul><li>Formed and tested hypotheses</li><li>Turned analysis into plain-language recommendations</li></ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- WHAT THIS PRODUCED -->
-  <div class="produced">
-    <div class="produced-eyebrow">● The Payoff</div>
-    <h2 class="produced-head">What This Diagnosis Actually Produced</h2>
-    <p class="produced-sub">Root-causing the latency issues and partnering on the backend fix moved real numbers, not just anecdotes. Re-measured over four weeks against the same Excel tracker.</p>
-    <div class="stat-bar">
-      <div class="stat"><div class="stat-icon">📈</div><div class="num">+7.6pp</div><div class="lbl">Funnel Growth</div><div class="desc">More sign-up completions overall</div></div>
-      <div class="stat"><div class="stat-icon">⚡</div><div class="num">80%+</div><div class="lbl">Faster Spinners</div><div class="desc">Average wait time cut across both spinners</div></div>
-      <div class="stat"><div class="stat-icon">📉</div><div class="num">43%</div><div class="lbl">Less Abandonment</div><div class="desc">Early-funnel drop-off after fix</div></div>
-      <div class="stat"><div class="stat-icon">🗄️</div><div class="num">4.5s→2.5s</div><div class="lbl">DB Lookup Time</div><div class="desc">Email/phone entry, post-migration</div></div>
-      <div class="stat"><div class="stat-icon">⏱️</div><div class="num">24.3min→90s</div><div class="lbl">Confirmation Step</div><div class="desc">Single biggest source of drop-off, fixed</div></div>
-    </div>
-  </div>
-
-  <div class="disclaimer">
-    Metrics shown reflect internal funnel and UX diagnostics measured between June and July 2025, sourced from Hotjar session recordings, Mixpanel flow reports, and an internally-built Excel latency tracker.
-    <br><br>
-    Brought to you by Jessica Whitaker, Marketing Analytics Intern.
-  </div>
-
+<section class="friction" id="friction" aria-labelledby="friction-title"><div class="wrap">
+<div class="friction-top"><h2 class="eyebrow" id="friction-title">The experience · Friction across journeys</h2><span class="legend"><span class="legend-dot"></span>Observed problem areas</span></div>
+<div class="friction-grid">
+<article class="friction-group"><svg class="icon" aria-hidden="true"><use href="#loader"/></svg><h3>Email & account<br>creation</h3><div class="mini-ui" aria-hidden="true"><span class="mini-spinner"></span><span class="ui-caption">Still loading…</span></div><p>Loading spinners delayed the email and account-creation experience.</p><p class="consequence">Follow-up signup measure: <strong>Continue with Email</strong></p></article>
+<article class="friction-group"><svg class="icon" aria-hidden="true"><use href="#message"/></svg><h3>Continue & SMS<br>verification</h3><div class="mini-ui" aria-hidden="true"><div class="code-boxes"><i></i><i></i><i></i><i></i></div></div><p>Slow buttons and verification errors interrupted confirmation.</p><p class="consequence">Follow-up signup measure: <strong>Create Account</strong></p></article>
+<article class="friction-group"><svg class="icon" aria-hidden="true"><use href="#phone"/></svg><h3>Phone-service<br>setup</h3><div class="mini-ui" aria-hidden="true"><div class="setup-bars"><span></span><span></span><span></span><span class="setup-progress"></span></div></div><p>Long provisioning spinners stalled phone-service setup.</p><p class="consequence">Follow-up measure: <strong>Provisioning wait time</strong></p></article>
+<article class="friction-group"><svg class="icon" aria-hidden="true"><use href="#cursor"/></svg><h3>Product&nbsp;add-on<br>button</h3><div class="mini-ui" aria-hidden="true"><span class="mock-button">Add product <span>→</span></span></div><p>An unresponsive product CTA interrupted add-on purchase attempts.</p><p class="consequence">Commercial measure: <strong>Estimated revenue loss</strong></p></article>
 </div>
+<div class="friction-footer"><strong>Four problem areas, followed through from observation to team action and review.</strong></div>
+</div></section>
 
-</body>
-</html>
+<section class="section wrap" aria-labelledby="investigation-title">
+<div class="section-head"><div><p class="eyebrow teal">Investigation</p><h2 id="investigation-title">Seeing the drop-off was only the starting point.</h2></div><p>Recordings located the friction. Funnel analysis showed where progression stalled. Excel timing records made the recurring issues specific enough to investigate and revisit after changes.</p></div>
+<div class="evidence-deck">
+<article class="evidence-source"><div class="source-top product-heading"><img class="product-logo" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJIb3RqYXIiPjxwYXRoIGZpbGw9IiNGRjNDMDAiIGQ9Ik0xMC4xMTkgOS44MTRDMTIuODk5IDguMjcgMTYuNzA0IDYuMTU1IDE2LjcwNCAwaC00LjYwOWMwIDMuNDQ0LTEuNjc2IDQuMzc1LTQuMjE0IDUuNzg2QzUuMSA3LjMzIDEuMjk1IDkuNDQ0IDEuMjk1IDE1LjZoNC42MWMwLTMuNDQ0IDEuNjc2LTQuMzc2IDQuMjE0LTUuNzg2ek0xOC4wOTYgOC40YzAgMy40NDQtMS42NzcgNC4zNzYtNC4yMTUgNS43ODUtMi43NzggMS41NDQtNi41ODUgMy42Ni02LjU4NSA5LjgxNWg0LjYwOWMwLTMuNDQ0IDEuNjc2LTQuMzc2IDQuMjE0LTUuNzg2IDIuNzgtMS41NDQgNi41ODYtMy42NTggNi41ODYtOS44MTRoLTQuNjA5eiIvPjwvc3ZnPg==" alt="" width="30" height="30"><span class="product-name">Hotjar</span><span class="source-method">Observe</span></div><h3>What happened<br>on the page?</h3><p>Reviewed 1,000+ recordings for clicks, waiting, errors, and exits.</p><span class="source-note">The behavior around the failure point</span></article>
+<article class="evidence-source"><div class="source-top product-heading"><img class="product-logo" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJNaXhwYW5lbCI+PHBhdGggZmlsbD0iIzc4NTZGRiIgZD0iTTYuOTY3IDkuOTk2aDMuMDUzYy0uNzYzLS40NzctMS4wNDgtMS4xNDUtMS40MzEtMi4zODRMNy40NDMgMy4zNjZDNi45MTkgMS40NTggNi40OS41NTEgNC4zOS41NTFILjAwNHYxLjE0NWguNjIxYzEuMjg2IDAgMS40MzEuNDc3IDEuODE0IDEuOTA4TDMuNDQgNy4zMjZjLjUyNCAxLjgxNCAxLjMzNyAyLjY3IDMuNTMgMi42N2gtLjAwM1ptNy4wNiAwaDMuMDUzYzIuMTk0IDAgMi45NTYtLjg2IDMuNDg0LTIuNjdsMS4wMDEtMy43MjJjLjM4Mi0xLjQzMS41Ny0xLjkwOCAxLjgxNC0xLjkwOEgyNFYuNTUxaC00LjM0Yy0yLjE0NiAwLTIuNTc2Ljg2LTMuMDUzIDIuODE1bC0xLjE0NSA0LjI0NmMtLjM4NCAxLjI4Ni0uNjczIDEuOTA3LTEuNDM1IDIuMzg0Wm0tNC4wMDcgNC4wMDhoNC4wMDdWOS45OTZIMTAuMDJ2NC4wMDhaTTAgMjMuNDQ5aDQuMzljMi4xIDAgMi41MjktLjkwNyAzLjA1My0yLjgxNWwxLjE0Ni00LjI0NmMuMzgzLTEuMjM5LjY2OC0xLjkwNyAxLjQzMS0yLjM4NEg2Ljk2N2MtMi4xOTQgMC0zLjAwNy44Ni0zLjUzMSAyLjY3bC0xLjAwMSAzLjcyMmMtLjM4MyAxLjQzMS0uNTI0IDEuOTA3LTEuODE0IDEuOTA3SDB2MS4xNDZabTE5LjY1IDBoNC4zNDN2LTEuMTQ2aC0uNjIyYy0xLjIzOSAwLTEuNDMxLS40NzYtMS44MTQtMS45MDdsLTEuMDAxLTMuNzIyYy0uNTI0LTEuODE0LTEuMjg2LTIuNjctMy40ODMtMi42N2gtMy4wNDZjLjc2Mi40NzcgMS4wNDEgMS4wOTggMS40MjQgMi4zODRsMS4xNDUgNC4yNDZjLjQ3NyAxLjk1NS45MDcgMi44MTUgMy4wNTQgMi44MTVaIi8+PC9zdmc+" alt="" width="30" height="30"><span class="product-name">Mixpanel</span><span class="source-method">Locate</span></div><h3>Where did<br>progress stall?</h3><p>Analyzed journeys and conversion drop-offs to locate the problem areas.</p><span class="source-note">The broader funnel pattern</span></article>
+<article class="evidence-source"><div class="source-top product-heading"><img class="product-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ik1pY3Jvc29mdCBFeGNlbCI+PHBhdGggZD0ibTMyMS41IDI0NC4xLTIwMi40LTM1Ljd2MjYzLjljMCAxMi4xIDkuOCAyMS44IDIxLjggMjEuOGgzNDkuM2MxMi4xIDAgMjEuOC05LjggMjEuOC0yMS44di05Ny4yeiIgZmlsbD0iIzE4NWMzNyIvPjxwYXRoIGQ9Ik0zMjEuNSAxNy45SDE0MC45Yy0xMi4xIDAtMjEuOCA5LjgtMjEuOCAyMS44djk3LjJMMzIxLjUgMjU2bDEwNy4yIDM1LjdMNTEyIDI1NlYxMzYuOXoiIGZpbGw9IiMyMWEzNjYiLz48cGF0aCBkPSJNMTE5LjEgMTM2LjloMjAyLjRWMjU2SDExOS4xeiIgZmlsbD0iIzEwN2M0MSIvPjxwYXRoIGQ9Ik0yNjMuOSAxMTMuMUgxMTkuMXYyOTcuN0gyNjRjMTIgMCAyMS44LTkuOCAyMS44LTIxLjhWMTM1Yy0uMS0xMi4xLTkuOC0yMS44LTIxLjktMjEuOSIgb3BhY2l0eT0iLjEiLz48cGF0aCBkPSJNMjUyIDEyNUgxMTl2Mjk3LjdoMTMzYzEyIDAgMjEuOC05LjggMjEuOC0yMS44di0yNTRjMC0xMi4xLTkuNy0yMS44LTIxLjgtMjEuOSIgb3BhY2l0eT0iLjIiLz48bGluZWFyR3JhZGllbnQgaWQ9InhnIiB4MT0iNDUuNDg5IiB4Mj0iMjE2LjM5NSIgeTE9IjEwNy45NjQiIHkyPSI0MDMuOTY3IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTg4ODRmIi8+PHN0b3Agb2Zmc2V0PSIuNSIgc3RvcC1jb2xvcj0iIzExN2U0MyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBiNjYzMSIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZD0iTTIxLjggMTI1aDIxOC4zYzEyLjEgMCAyMS44IDkuOCAyMS44IDIxLjh2MjE4LjNjMCAxMi4xLTkuOCAyMS44LTIxLjggMjEuOEgyMS44QzkuOCAzODcgMCAzNzcuMiAwIDM2NS4yVjE0Ni44YzAtMTIgOS44LTIxLjggMjEuOC0yMS44IiBmaWxsPSJ1cmwoI3hnKSIvPjxwYXRoIGQ9Im02Ny42IDMyNi45IDQ1LjktNzEuMUw3MS40IDE4NWgzMy44bDIzIDQ1LjJjMi4xIDQuMyAzLjYgNy41IDQuNCA5LjZoLjNjMS41LTMuNCAzLjEtNi44IDQuOC0xMGwyNC41LTQ0LjhoMzEuMWwtNDMuMSA3MC4zIDQ0LjIgNzEuNWgtMzMuMWwtMjYuNS00OS43Yy0xLjItMi4xLTIuMy00LjMtMy4yLTYuNmgtLjRjLS44IDIuMy0xLjggNC40LTMuMSA2LjRsLTI3LjMgNDkuOXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNNDkwLjIgMTcuOUgzMjEuNVYxMzdINTEyVjM5LjdjMC0xMi4xLTkuOC0yMS44LTIxLjgtMjEuOCIgZmlsbD0iIzMzYzQ4MSIvPjxwYXRoIGQ9Ik0zMjEuNSAyNTZINTEydjExOS4xSDMyMS41eiIgZmlsbD0iIzEwN2M0MSIvPjwvc3ZnPg==" alt="" width="30" height="30"><span class="product-name">Excel</span><span class="source-method">Structure</span></div><h3>Which delays<br>kept recurring?</h3><p>Logged timings, interactions, and exits across page-focused worksheets; formulas combined timings within each page.</p><span class="source-note">A consistent record for comparison</span></article>
+</div>
+<figure class="diagnosis-exhibit" aria-labelledby="diagnosis-title">
+<p class="eyebrow teal">Exhibit 1</p><h3 id="diagnosis-title">The bottlenecks—and the measures used to follow them.</h3>
+<p class="exhibit-intro">Each bottleneck was paired with a follow-up measure, linking the observed problem to the later review.</p>
+<div class="diagnosis-table" role="table" aria-label="Initial friction findings and follow-up measures">
+<div class="diagnosis-header" role="row"><span role="columnheader">Problem area</span><span role="columnheader">Observed initially</span><span role="columnheader">What was followed</span></div>
+<div class="diagnosis-row" role="row"><div role="cell"><strong>Email & account creation</strong></div><div role="cell"><b>8–14s loading</b><span>Exits observed after 5–8 seconds of waiting.</span></div><div role="cell" class="follow-cell"><svg class="icon" aria-hidden="true"><use href="#loader"/></svg><div><strong>Continue with Email</strong><span>Loading time and step-level conversion.</span></div></div></div>
+<div class="diagnosis-row" role="row"><div role="cell"><strong>Continue & SMS verification</strong></div><div role="cell"><b>23–25s button response</b><span>Slow controls and verification issues stalled confirmation.</span></div><div role="cell" class="follow-cell"><svg class="icon" aria-hidden="true"><use href="#message"/></svg><div><strong>Create Account</strong><span>Response time and progression toward confirmation.</span></div></div></div>
+<div class="diagnosis-row" role="row"><div role="cell"><strong>Phone-service setup</strong></div><div role="cell"><b>3+ min provisioning wait</b><span>Lagging or frozen loading states during setup.</span></div><div role="cell" class="follow-cell"><svg class="icon" aria-hidden="true"><use href="#phone"/></svg><div><strong>Provisioning wait time</strong><span>Time for the loading process to complete.</span></div></div></div>
+<div class="diagnosis-row" role="row"><div role="cell"><strong>Product&nbsp;add-on button</strong></div><div role="cell"><b>Unresponsive CTA</b><span>Interrupted add-on purchase attempts.</span></div><div role="cell" class="follow-cell"><svg class="icon" aria-hidden="true"><use href="#cursor"/></svg><div><strong>Estimated revenue loss</strong><span>The separate commercial finding below.</span></div></div></div>
+</div></figure>
+<div class="synthesis"><p class="eyebrow">What the evidence revealed</p><div><h3>Performance delays were part of the conversion problem.</h3><p>Comparing behavior, response times, and funnel movement separated recurring performance problems from other interface issues. Marketing and technical teams could then investigate defined bottlenecks rather than a general conversion decline.</p></div></div>
+</section>
+
+<section class="wrap" aria-labelledby="commercial-title"><div class="commercial"><div><p class="eyebrow teal">Commercial significance</p><p class="commercial-value">$1,000</p><p class="commercial-unit">Estimated lost revenue<br>over three months</p></div><div class="commercial-story"><h2 id="commercial-title">The product&nbsp;add-on issue had an estimated revenue cost.</h2><p>Alongside the signup issues, the product&nbsp;add-on button identified above was linked to missed purchase opportunities. Quantifying the estimated loss gave the team a commercial basis for addressing this separate bottleneck.</p><div class="status-line"><span><svg class="icon" aria-hidden="true"><use href="#check"/></svg>Issue subsequently fixed</span><span class="status-limit">Post-fix revenue was not measured</span></div></div></div></section>
+
+<section class="section wrap" aria-labelledby="action-title">
+<div class="section-head"><div><p class="eyebrow teal">Evidence → action</p><h2 id="action-title">Findings made the bottlenecks<br>actionable for the team.</h2></div><p>Weekly presentations brought the loading, verification, provisioning, and product CTA findings to Marketing and technical stakeholders, informing requirements for front-end and back-end developers.</p></div>
+<div class="collaboration-grid">
+<ol class="handoff-flow">
+<li><span class="step-icon"><svg class="icon" aria-hidden="true"><use href="#presentation"/></svg></span><div class="actor">Jessica · Marketing collaboration</div><h3>Show where customers struggled</h3><p>Present the observed delays, customer exits, and commercial finding to the relevant stakeholders.</p></li>
+<li><span class="step-icon"><svg class="icon" aria-hidden="true"><use href="#code"/></svg></span><div class="actor">CTO & technical team</div><h3>Investigate and correct the issue</h3><p>Inspect the APIs, confirm technical problems and implement corrections.</p></li>
+<li><span class="step-icon"><svg class="icon" aria-hidden="true"><use href="#play"/></svg></span><div class="actor">Jessica · Follow-up analysis</div><h3>Return to the customer experience</h3><p>At the CTO’s request, revisit the same loading and response issues in fresh recordings, then compare funnel movement.</p></li>
+</ol>
+<aside class="quote-panel" aria-label="Technical confirmation from the CTO"><div class="quote-mark" aria-hidden="true">“</div><blockquote>CRM user search was inefficient, slowing account creation.</blockquote><cite>CTO, bOnline · Technical confirmation</cite><div class="technical"><p class="eyebrow">Supporting technical result</p><p class="technical-value">4.5s <span class="arrow">→</span> 2.5s</p><p>Lookup time for email/phone entry, as reported by the CTO.</p></div></aside>
+</div></section>
+
+<section class="section outcomes" aria-labelledby="outcomes-title"><div class="wrap">
+<div class="section-head"><div><p class="eyebrow teal">Validation · Revisiting the findings</p><h2 id="outcomes-title">Recheck the same bottlenecks.<br>Then assess progression.</h2></div><p>After database, API, and interface improvements, the same loading and response measures were reviewed alongside signup progression. The product&nbsp;add-on issue was fixed separately; revenue after that fix was not measured.</p></div>
+<figure class="validation-exhibit" aria-labelledby="validation-exhibit-title"><p class="eyebrow teal">Exhibit 2</p><h3 id="validation-exhibit-title">Loading and response times improved across all three areas.</h3>
+<table class="response-comparison"><caption class="sr-only">Initial and later performance measures with presentation-reported percentage reductions in time</caption><thead><tr><th scope="col">Performance area</th><th scope="col">Initially</th><th scope="col">After changes</th><th scope="col">Time reduced</th></tr></thead><tbody>
+<tr><th scope="row">Email & account creation<span>Email loading</span></th><td class="time-before">8–14s</td><td class="time-after">1.2s</td><td class="time-reduction"><strong>89<span>%</span></strong></td></tr>
+<tr><th scope="row">Continue & SMS verification<span>Button response</span></th><td class="time-before">23–25s</td><td class="time-after">1.2s</td><td class="time-reduction"><strong>95<span>%</span></strong></td></tr>
+<tr><th scope="row">Phone-service setup<span>Provisioning spinner</span></th><td class="time-before">3+ min</td><td class="time-after">55s</td><td class="time-reduction"><strong>69<span>%</span></strong></td></tr>
+</tbody></table>
+<div class="progression-check"><h4>The two tracked signup steps also showed stronger progression.</h4><p>The Continue with Email and Create Account measures introduced in Exhibit 1 were reviewed over three reporting periods. These rates track progression within the journey.</p></div>
+<div class="conversion-panels"><div class="conversion-panel"><h5>Continue with Email<span>+3.7 pp</span></h5><div class="conversion-plot" role="img" aria-label="Continue with Email step-level conversion: June 30 to July 7, 62.6 percent; July 8 to 15, 65.3 percent; July 16 to 22, 66.3 percent. Vertical scale: zero to 100 percent."><span class="axis-tick top">100%</span><span class="axis-tick middle">50%</span><span class="axis-tick bottom">0%</span><div class="conversion-bars"><div class="conversion-bar" style="--rate:62.6%"><strong>62.6%</strong></div><div class="conversion-bar" style="--rate:65.3%"><strong>65.3%</strong></div><div class="conversion-bar" style="--rate:66.3%"><strong>66.3%</strong></div></div></div><div class="conversion-dates" aria-hidden="true"><span>Jun 30–Jul 7</span><span>Jul 8–15</span><span>Jul 16–22</span></div></div><div class="conversion-panel"><h5>Create Account<span>+6.6 pp</span></h5><div class="conversion-plot" role="img" aria-label="Create Account step-level conversion: June 30 to July 7, 87.0 percent; July 8 to 15, 92.8 percent; July 16 to 22, 93.6 percent. Vertical scale: zero to 100 percent."><span class="axis-tick top">100%</span><span class="axis-tick middle">50%</span><span class="axis-tick bottom">0%</span><div class="conversion-bars"><div class="conversion-bar" style="--rate:87.0%"><strong>87.0%</strong></div><div class="conversion-bar" style="--rate:92.8%"><strong>92.8%</strong></div><div class="conversion-bar" style="--rate:93.6%"><strong>93.6%</strong></div></div></div><div class="conversion-dates" aria-hidden="true"><span>Jun 30–Jul 7</span><span>Jul 8–15</span><span>Jul 16–22</span></div></div></div><figcaption>Each bar shows the share progressing through that step. Gains compare the first and last periods; pp = percentage points.</figcaption></figure>
+
+</div></section>
+
+<section class="learning wrap" aria-labelledby="contribution-title"><div class="learning-inner"><p class="eyebrow">Three-month contribution</p><div class="contribution-copy"><h2 id="contribution-title">Analysis helped the team address friction—and measure improvement.</h2><p>Behavioral and funnel analysis gave Marketing and technical teams specific bottlenecks to investigate, a quantified product CTA loss estimate, and a repeatable Excel monitoring model. Weekly presentations carried those findings across teams; follow-up analysis checked the experience after changes.</p><p class="impact-context">Across the broader signup optimization work, validation reported faster spinner loading, lower early abandonment, and higher overall completion:</p></div></div><div class="outcome-grid">
+<article class="outcome"><p class="outcome-value">&gt;80<small>%</small></p><h3>Lower average wait times across both spinners</h3></article>
+<article class="outcome"><p class="outcome-value">43<small>%</small></p><h3>Lower early abandonment</h3></article>
+<article class="outcome"><p class="outcome-value">+7.6<small> pp</small></p><h3>Higher overall signup completion rate</h3></article>
+</div></section>
+<div class="wrap"><details id="evidence-scope"><summary>Evidence & scope</summary><dl class="evidence-index">
+<dt>Investigation and ownership</dt><dd>Based on the final internship presentation, weekly analytical decks and Jessica Whitaker’s firsthand account. The investigation covered multiple website journeys, including signup and Buy Now. Jessica conducted the behavioral and funnel analysis, built the Excel tracking model, presented findings and measured subsequent performance. The CTO and technical team investigated the backend issues and implemented code changes.</dd>
+<dt>Friction illustrations</dt><dd>The four interface drawings are conceptual representations of observed problems, not historical bOnline screens or a single sequential funnel.</dd>
+<dt>Exhibit 1 · Initial findings</dt><dd>Final internship presentation, page 6: email loading of 8–14 seconds, exits observed after 5–8 seconds, Continue/confirmation button response of 23–25 seconds, and provisioning loading over three minutes (approximately 180 seconds in the source). These are summarized observations across reviewed recordings. The product&nbsp;add-on finding comes from the broader website investigation, including Buy Now analysis. The four areas are not one universal sequential funnel.</dd>
+<dt>Exhibit 2 · Response and progression checks</dt><dd>Final internship presentation, pages 6 and 8: initial observations compared with later reported email loading of 1.2 seconds, Continue/SMS response of 1.2 seconds, and PIN/provisioning loading of 55 seconds. The presentation reports time reductions of 89% for email loading, 95% for Continue/SMS responses, and 69% for provisioning. These are rounded summary reductions; the email benchmark was approximately 11 seconds on average and provisioning approximately 180 seconds, while initial observations are displayed as ranges or approximations. These relative time reductions are percentages, not percentage-point changes. Page 9: Continue with Email conversion of 62.6%, 65.3%, and 66.3%; Create Account conversion of 87.0%, 92.8%, and 93.6%, across June 30–July 22, 2025. First-to-last increases are 3.7 and 6.6 percentage points. The source relates account creation to the confirmation-code step. Response timings and step-conversion series are distinct measures; the exhibit does not imply matched customers or isolated experimental effects. Step-level rates are separate from overall signup completion and paid purchases.</dd>
+<dt>Technical confirmation</dt><dd>The CRM explanation and supporting query images were supplied by the CTO. The 4.5-to-2.5-second change was described as lookup time for email/phone entry; it is one technical measurement, not the duration of an entire spinner or signup journey.</dd>
+<dt>Commercial finding</dt><dd>The product&nbsp;add-on CTA finding represents an estimated $1,000 in lost revenue over three months. The issue was subsequently fixed; post-fix revenue was not measured, and no recovered-revenue claim is made.</dd>
+<dt>Reported outcomes</dt><dd>The final presentation reports more than 80% lower average wait times across both spinners, 43% lower early abandonment and a 7.6-percentage-point increase in overall signup completion. The spinner finding is Jessica’s analysis. These outcomes reflect a broader optimization period involving database, API, loading and interface improvements; they are not isolated effects of a single API correction. Weekly monitoring continued as loading-related issues improved and other interface or error patterns remained.</dd>
+</dl></details><footer><span>Jessica Whitaker</span><span>bOnline · Portfolio case study</span></footer></div>
+</main>
+</body></html>
